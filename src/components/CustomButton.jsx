@@ -1,31 +1,71 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, Dimensions} from 'react-native';
-import {InterFont, textcolor} from '../styles/CustomStyles';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+} from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
-const CustomButton = ({bgColor, text, width, onPress}) => {
+const CustomButton = ({
+  bgColor,
+  text,
+  width,
+  onPress,
+  image,
+  paddingVertical = 12,
+  textColor,
+  fontFamily,
+  fontSize,
+}) => {
   return (
     <TouchableOpacity
-      style={[styles.button, {backgroundColor: bgColor, width: width}]}
+      style={[
+        styles.button,
+        {
+          backgroundColor: bgColor,
+          width: width,
+          paddingVertical,
+          flexDirection: image ? 'row' : 'column',
+        },
+      ]}
       onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
+      {image && <Image source={image} style={styles.image} />}
+      <Text
+        style={[
+          styles.text,
+          {
+            color: textColor,
+            fontFamily: fontFamily,
+            fontSize,
+            marginLeft: image ? width * 0.2 : 0,
+          },
+        ]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    height: height * 0.065,
     borderRadius: 10,
-    justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 12,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingHorizontal: 20,
   },
   text: {
-    fontSize: 18,
-    fontWeight: InterFont.BoldFont,
-    color: textcolor.color4,
+    // marginLeft: width * 0.13,
+    textAlign: 'center',
+  },
+  image: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
 });
 

@@ -1,9 +1,10 @@
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+const {height,width}=Dimensions.get('window');
 const BottomtabNavigation = ({state, descriptors, navigation}) => {
   const icons = [
     {name: 'home', component: Entypo},
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 8,
+    height:height*0.065,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
  

@@ -7,7 +7,7 @@ import {
   Image,
 } from 'react-native';
 
-const {width} = Dimensions.get('window');
+const {width,height} = Dimensions.get('window');
 
 const CustomButton = ({
   bgColor,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     alignItems: 'center',
-    marginVertical: 12,
+    marginVertical: height*0.01,
     display: 'flex',
     flexDirection: 'row',
     paddingHorizontal: 20,

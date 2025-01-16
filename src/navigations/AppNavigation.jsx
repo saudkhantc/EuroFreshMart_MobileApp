@@ -10,6 +10,7 @@ import OtpScreen from '../screens/AuthScreens/OtpScreen';
 import UpdatePassword from '../screens/AuthScreens/UpdatePassword';
 import HomeScreen from '../screens/HomeScreens/HomeScreen';
 import BottomTabs from './BottomTabs';
+import ProductDetails from '../screens/HomeScreens/ProductDetails';
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ const AppNavigation = () => {
         <Stack.Screen name="Otp-screen" component={OtpScreen} />
         <Stack.Screen name="update-password" component={UpdatePassword} />
         <Stack.Screen name="home-screen" component={HomeScreen} />
+        <Stack.Screen name="product-details" component={ProductDetails} />
         <Stack.Screen name="bottom-tabs" component={BottomTabs} />
       
       </Stack.Navigator>

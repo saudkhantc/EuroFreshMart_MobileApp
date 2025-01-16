@@ -61,7 +61,7 @@ const CustomCard = ({
         </View>
 
         {/* Text Section */}
-        <View style={{paddingHorizontal: 6, paddingVertical: 4, gap: 3}}>
+        <View style={{paddingHorizontal: 6, paddingVertical: 3, gap: 2}}>
           <View>
             <Text style={styles.ProductName}>{productname}</Text>
           </View>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   Image: {
     width: width * 0.42,
-    height: height * 0.15,
+    height: height * 0.14,
     resizeMode: 'cover',
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,

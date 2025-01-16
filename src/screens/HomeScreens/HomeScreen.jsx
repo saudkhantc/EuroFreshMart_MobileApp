@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
   },
   sliderContainer: {
-    marginTop: -height * 0.14,
+    marginTop: -height * 0.12,
     alignSelf: 'center',
     width: width * 0.9,
     borderRadius: 15,

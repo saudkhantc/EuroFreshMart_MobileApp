@@ -52,57 +52,55 @@ const ProductDetails = () => {
               />
             </TouchableOpacity>
           </View>
-
-         
         </View>
 
         <View style={styles.ProductDetails}>
-            <View style={styles.TextContainer}>
-              <View>
-                <Text
-                  style={{
-                    fontSize: 24,
-                    fontFamily: InterFont.SemiBoldFont,
-                    color: textcolor.color2,
-                  }}>
-                  Fresh Carrot
-                </Text>
-              </View>
-
-              <View
-                style={{flexDirection: 'row', gap: 6, alignItems: 'center'}}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: InterFont.SemiBoldFont,
-                    color: textcolor.color3,
-                  }}>
-                  $ 18,000
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: InterFont.RegularFont,
-                    color: '#828282',
-                    fontSize: 12,
-                  }}>
-                  /kg
-                </Text>
-              </View>
+          <View style={styles.TextContainer}>
+            <View>
+              <Text
+                style={{
+                  fontSize: 24,
+                  fontFamily: InterFont.SemiBoldFont,
+                  color: textcolor.color2,
+                }}>
+                Fresh Carrot
+              </Text>
             </View>
 
-            <View style={{marginTop: height * 0.01}}>
+            <View style={{flexDirection: 'row', gap: 6, alignItems: 'center'}}>
               <Text
                 style={{
                   fontSize: 18,
                   fontFamily: InterFont.SemiBoldFont,
-                  color: textcolor.color2,
-                  textAlign: 'center',
+                  color: textcolor.color3,
                 }}>
-                Details
+                $ 18,000
+              </Text>
+              <Text
+                style={{
+                  fontFamily: InterFont.RegularFont,
+                  color: '#828282',
+                  fontSize: 12,
+                }}>
+                /kg
               </Text>
             </View>
+          </View>
 
-            <View style={{marginTop:height*0.02}}>
+          <View style={{marginTop: height * 0.01}}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontFamily: InterFont.SemiBoldFont,
+                color: textcolor.color2,
+                textAlign: 'center',
+              }}>
+              Details
+            </Text>
+          </View>
+
+          <View style={{marginVertical: height * 0.012}}>
+            <View>
               <Text style={styles.DescText}>Description</Text>
               <Text style={styles.DescDetails}>
                 The carrot is a root vegetable, most commonly observed as orange
@@ -111,7 +109,7 @@ const ProductDetails = () => {
                 Daucus carota, native to Europe and Southwestern Asia.
               </Text>
             </View>
-            <View style={{marginTop:height*0.01}}>
+            <View style={{marginTop: height * 0.01}}>
               <Text style={styles.DescText}>Origin</Text>
               <Text style={styles.DescDetails}>
                 The carrot is a root vegetable, most commonly observed as orange
@@ -121,44 +119,66 @@ const ProductDetails = () => {
               </Text>
             </View>
           </View>
-
-
-          
+        </View>
       </ScrollView>
 
       <View style={styles.footer}>
-          <View style={{flexDirection:"row",gap:10,alignItems:"center"}}>
-          <TouchableOpacity style={{borderWidth:1,borderColor:"#ACE03A",borderRadius:5,padding:2}}>
-            <AntDesign name="minus" color="#ACE03A" size={20}/>
+        <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: '#ACE03A',
+              borderRadius: 5,
+              padding: 2,
+            }}>
+            <AntDesign name="minus" color="#ACE03A" size={20} />
           </TouchableOpacity>
 
-
-          <TouchableOpacity style={{borderWidth:1,borderColor:"#ACE03A",borderRadius:5,padding:2,width:width*0.12,height:height*0.055,justifyContent:"center",backgroundColor:textcolor.color3}}>
-            <Text style={{fontSize:18,fontFamily:InterFont.SemiBoldFont,textAlign:"center"}}>2</Text>
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: '#ACE03A',
+              borderRadius: 5,
+              padding: 2,
+              width: width * 0.11,
+              height: height * 0.055,
+              justifyContent: 'center',
+              backgroundColor: textcolor.color3,
+            }}>
+            <Text
+              style={{
+                fontSize: 18,
+                fontFamily: InterFont.SemiBoldFont,
+                textAlign: 'center',
+              }}>
+              2
+            </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={{borderWidth:1,borderColor:"#ACE03A",borderRadius:5,padding:2}}>
-            <AntDesign name="plus" color="#ACE03A" size={20}/>
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: '#ACE03A',
+              borderRadius: 5,
+              padding: 2,
+            }}>
+            <AntDesign name="plus" color="#ACE03A" size={20} />
           </TouchableOpacity>
+        </View>
 
-          </View>
-
-          <View>
+        <View>
           <CustomButton
-                bgColor={textcolor.color3}
-                text="Add to cart"
-                width={width * 0.4}
-                onPress={() => navigation.navigate('bottom-tabs')}
-                paddingVertical={12}
-                textColor={textcolor.color4}
-                fontFamily={InterFont.SemiBoldFont}
-                fontSize={18}
-              />
-
-          </View>
-
-
-          </View>
+            bgColor={textcolor.color3}
+            text="Add to cart"
+            width={width * 0.38}
+            onPress={() => navigation.navigate('bottom-tabs')}
+            paddingVertical={8}
+            textColor={textcolor.color4}
+            fontFamily={InterFont.SemiBoldFont}
+            fontSize={18}
+          />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -169,7 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   scrollContainer: {
-    flexGrow:1
+    flexGrow: 1,
   },
   imageContainer: {
     position: 'relative',
@@ -189,7 +209,6 @@ const styles = StyleSheet.create({
   icon: {},
   ProductDetails: {
     paddingHorizontal: 20,
-
   },
   TextContainer: {
     paddingVertical: 10,
@@ -207,19 +226,18 @@ const styles = StyleSheet.create({
     fontFamily: InterFont.RegularFont,
     color: '#828282',
   },
-  footer:{
-    flexDirection:"row",
-    justifyContent:"space-around",
-    borderTopLeftRadius:20,
-    borderTopRightRadius:20,
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     backgroundColor: '#fff',
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: -2 }, 
-    shadowOpacity: 0.2, 
-    shadowRadius: 4, 
-    elevation: 5, 
-
-  }
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: -2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
 });
 
 export default ProductDetails;

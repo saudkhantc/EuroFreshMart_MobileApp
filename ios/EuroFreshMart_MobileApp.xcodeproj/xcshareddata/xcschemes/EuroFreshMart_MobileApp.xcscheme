@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "EuroFreshMart_MobileApp.app"
-               BlueprintName = "EuroFreshMart_MobileApp"
-               ReferencedContainer = "container:EuroFreshMart_MobileApp.xcodeproj">
+               BuildableName = "ApnaDookan.app"
+               BlueprintName = "ApnaDookan"
+               ReferencedContainer = "container:ApnaDookan.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "EuroFreshMart_MobileAppTests.xctest"
-               BlueprintName = "EuroFreshMart_MobileAppTests"
-               ReferencedContainer = "container:EuroFreshMart_MobileApp.xcodeproj">
+               BuildableName = "ApnaDookanTests.xctest"
+               BlueprintName = "ApnaDookanTests"
+               ReferencedContainer = "container:ApnaDookan.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "EuroFreshMart_MobileApp.app"
-            BlueprintName = "EuroFreshMart_MobileApp"
-            ReferencedContainer = "container:EuroFreshMart_MobileApp.xcodeproj">
+            BuildableName = "ApnaDookan.app"
+            BlueprintName = "ApnaDookan"
+            ReferencedContainer = "container:ApnaDookan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "EuroFreshMart_MobileApp.app"
-            BlueprintName = "EuroFreshMart_MobileApp"
-            ReferencedContainer = "container:EuroFreshMart_MobileApp.xcodeproj">
+            BuildableName = "ApnaDookan.app"
+            BlueprintName = "ApnaDookan"
+            ReferencedContainer = "container:ApnaDookan.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   CardContent: {
     marginTop: height * 0.02,
-    marginBottom: height * 0.07
+    marginBottom: height * 0.08
   },
   cardContainer: {
     flexDirection: 'row',

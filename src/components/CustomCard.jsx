@@ -80,7 +80,7 @@ const CustomCard = ({
         <TouchableOpacity onPress={handleAddToCart}>
           <View style={{paddingHorizontal: 4, paddingBottom: 4}}>
             <View style={styles.Icon}>
-              <Ionicons name="add-circle-outline" size={34} color="#7A53B9" />
+              <Ionicons name="add-circle-outline" size={32} color="#7A53B9" />
             </View>
           </View>
         </TouchableOpacity>

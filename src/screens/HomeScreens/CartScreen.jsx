@@ -7,6 +7,7 @@ import mail from '../../assets/images/mail.png';
 import check from '../../assets/images/check.png';
 import onion from '../../assets/images/onion.jpeg';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
+import CustomButton from '../../components/CustomButton';
 
 const { width, height } = Dimensions.get('window');
 
@@ -14,17 +15,17 @@ const CartScreen = () => {
   const [activeButton, setActiveButton] = useState(0);
 
   const handleButtonPress = (buttonIndex) => {
-    setActiveButton(buttonIndex === activeButton ? null : buttonIndex); 
+    setActiveButton(buttonIndex === activeButton ? null : buttonIndex);
   };
-  const [quantity, setQuantity] = useState(0); 
+  const [quantity, setQuantity] = useState(0);
 
   const incrementQuantity = () => {
-    setQuantity(prevQuantity => prevQuantity + 1); 
+    setQuantity(prevQuantity => prevQuantity + 1);
   };
 
   const decrementQuantity = () => {
     if (quantity > 0) {
-      setQuantity(prevQuantity => prevQuantity - 1); 
+      setQuantity(prevQuantity => prevQuantity - 1);
     }
   };
 
@@ -52,7 +53,7 @@ const CartScreen = () => {
             <TouchableOpacity
               style={[
                 styles.button,
-                { borderColor: activeButton === 0 ? '#ACE03A' : textcolor.color8 } 
+                { borderColor: activeButton === 0 ? '#ACE03A' : textcolor.color8 }
               ]}
               onPress={() => handleButtonPress(0)}
             >
@@ -62,7 +63,7 @@ const CartScreen = () => {
             <TouchableOpacity
               style={[
                 styles.button,
-                { borderColor: activeButton === 1 ? '#ACE03A' : textcolor.color8 } 
+                { borderColor: activeButton === 1 ? '#ACE03A' : textcolor.color8 }
               ]}
               onPress={() => handleButtonPress(1)}
             >
@@ -72,7 +73,7 @@ const CartScreen = () => {
             <TouchableOpacity
               style={[
                 styles.button,
-                { borderColor: activeButton === 2 ? '#ACE03A' : textcolor.color8 } 
+                { borderColor: activeButton === 2 ? '#ACE03A' : textcolor.color8 }
               ]}
               onPress={() => handleButtonPress(2)}
             >
@@ -102,8 +103,8 @@ const CartScreen = () => {
               <AntDesign name="delete" size={25} color={textcolor.color2} />
             </View>
           </View>
-            {/* Cart item */}
-            <View style={styles.row}>
+          {/* Cart item */}
+          <View style={styles.row}>
             <Image source={onion} style={styles.imagecart} />
             <View style={styles.textContainer}>
               <Text style={styles.productName}>Carrot</Text>
@@ -119,8 +120,8 @@ const CartScreen = () => {
             </View>
           </View>
 
-            {/* Cart item */}
-            <View style={styles.row}>
+          {/* Cart item */}
+          <View style={styles.row}>
             <Image source={onion} style={styles.imagecart} />
             <View style={styles.textContainer}>
               <Text style={styles.productName}>Carrot</Text>
@@ -131,13 +132,45 @@ const CartScreen = () => {
                 <TouchableOpacity style={styles.quantityButton}><Text style={styles.quantityButtonText} onPress={incrementQuantity}>+</Text></TouchableOpacity>
               </View>
             </View>
-            <View style={styles.deleteIconContainer}>
+            <TouchableOpacity style={styles.deleteIconContainer}>
               <AntDesign name="delete" size={25} color={textcolor.color2} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.line2} />
+          <View style={styles.summaryContainer}>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryText}>Subtotal</Text>
+              <Text style={styles.summaryAmount}>$ 130</Text>
+            </View>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryText}>Tax</Text>
+              <Text style={styles.summaryAmount}>$ 130</Text>
+            </View>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryText}>Discount</Text>
+              <Text style={styles.summaryAmount}>$ 130</Text>
+            </View>
+            <View style={[styles.summaryRow, styles.totalRow]}>
+              <Text style={[styles.summaryText, styles.totalText]}>Total</Text>
+              <Text style={[styles.summaryAmount, styles.totalText]}>$ 130</Text>
             </View>
           </View>
+
+
         </View>
 
       </ScrollView>
+      {/* Footer Section */}
+      <View style={styles.footerContainer}>
+        <CustomButton text={'Processed to Checkout'} width={width * 0.6}
+          onPress={() => navigation.navigate('login')}
+          paddingVertical={12}
+          textColor={textcolor.color4}
+          bgColor={textcolor.color3}
+          fontFamily={InterFont.SemiBoldFont}
+          fontSize={14} />
+      </View>
     </View>
   );
 };
@@ -150,6 +183,7 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     flexGrow: 1,
+    marginBottom: 20
   },
   headerContainer: {
     width: '100%',
@@ -202,7 +236,7 @@ const styles = StyleSheet.create({
   cartcontainer: {
     marginHorizontal: 20,
     marginTop: 12,
-    marginBottom:20
+    marginBottom: 20
   },
   carttext: {
     fontSize: 20,
@@ -220,13 +254,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: width * 0.05,
+    marginBottom: width * 0.02,
   },
   imagecart: {
     width: width * 0.3,
     height: width * 0.25,
     resizeMode: 'cover',
-    borderRadius:10
+    borderRadius: 10
   },
   textContainer: {
     flex: 1,
@@ -283,6 +317,48 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  summaryContainer: {
+    marginHorizontal: 20,
+    marginTop: 5,
+    
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 2
+  },
+  summaryText: {
+    fontSize: 16,
+    color: '#888888',
+    fontWeight: 'normal',
+  },
+  summaryAmount: {
+    fontSize: 16,
+    color: '#888888',
+    fontWeight: 'normal',
+  },
+  totalRow: {
+    borderTopColor: textcolor.color8,
+    marginTop: 5,
+
+  },
+  totalText: {
+    fontWeight: 'bold',
+    color: textcolor.color2,
+  },
+   footerContainer: {
+    width: '100%',
+    height: 73, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white', 
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    position: 'absolute',
+    bottom: 0, 
+    paddingBottom: 10, 
   },
 });
 

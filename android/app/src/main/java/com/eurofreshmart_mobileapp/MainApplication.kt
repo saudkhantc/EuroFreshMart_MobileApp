@@ -1,4 +1,4 @@
-package com.eurofreshmart_mobileapp
+package com.ApnaDookan
 
 import android.app.Application
 import com.facebook.react.PackageList

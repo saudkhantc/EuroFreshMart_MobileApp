@@ -11,7 +11,8 @@ import UpdatePassword from '../screens/AuthScreens/UpdatePassword';
 import HomeScreen from '../screens/HomeScreens/HomeScreen';
 import BottomTabs from './BottomTabs';
 import CategoryScreen from '../screens/HomeScreens/CategoryScreen';
-
+import ProductDetails from '../screens/HomeScreens/ProductDetails';
+import CartScreen from '../screens/HomeScreens/CartScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,8 +28,10 @@ const AppNavigation = () => {
         <Stack.Screen name="Otp-screen" component={OtpScreen} />
         <Stack.Screen name="update-password" component={UpdatePassword} />
         <Stack.Screen name="home-screen" component={HomeScreen} />
+        <Stack.Screen name="product-details" component={ProductDetails} />
         <Stack.Screen name="bottom-tabs" component={BottomTabs} />
          <Stack.Screen name="category-screen" component={CategoryScreen}/>
+         <Stack.Screen name='cart-screen' component={CartScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

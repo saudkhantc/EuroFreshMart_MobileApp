@@ -34,6 +34,7 @@ const HomeScreen = () => {
           <View style={styles.CardContent}>
             <View style={styles.cardContainer}>
               <CustomCard
+               id="carrot" 
                 imageSource={carrot}
                 productname="Fresh Carrot"
                 pricetext="€ 19,000"
@@ -41,6 +42,7 @@ const HomeScreen = () => {
                 retailprice="€ 21,000"
               />
               <CustomCard
+               id="chilli"
                 imageSource={chilli}
                 productname="Fresh Carrot"
                 pricetext="€ 19,000"
@@ -49,6 +51,20 @@ const HomeScreen = () => {
               />
               <CustomCard
                 imageSource={onion}
+                productname="Fresh Carrot"
+                pricetext="€ 19,000"
+                unittxt="/Kg"
+                retailprice="€ 21,000"
+              />
+              <CustomCard
+                imageSource={potatoes}
+                productname="Fresh Carrot"
+                pricetext="€ 19,000"
+                unittxt="/Kg"
+                retailprice="€ 21,000"
+              />
+              <CustomCard
+                imageSource={potatoes}
                 productname="Fresh Carrot"
                 pricetext="€ 19,000"
                 unittxt="/Kg"
@@ -103,7 +119,8 @@ const styles = StyleSheet.create({
     marginTop:2,
   },
   CardContent: {
-    marginVertical: height * 0.02,
+    marginTop: height * 0.02,
+    marginBottom: height * 0.07
   },
   cardContainer: {
     flexDirection: 'row',

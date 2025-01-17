@@ -78,9 +78,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.eurofreshmart_mobileapp"
+    namespace "com.ApnaDookan"
     defaultConfig {
-        applicationId "com.eurofreshmart_mobileapp"
+        applicationId "com.ApnaDookan"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

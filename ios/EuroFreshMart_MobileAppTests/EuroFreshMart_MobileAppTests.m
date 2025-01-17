@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface EuroFreshMart_MobileAppTests : XCTestCase
+@interface ApnaDookanTests : XCTestCase
 
 @end
 
-@implementation EuroFreshMart_MobileAppTests
+@implementation ApnaDookanTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

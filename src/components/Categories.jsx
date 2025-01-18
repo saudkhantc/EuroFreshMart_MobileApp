@@ -15,6 +15,7 @@ import img3 from '../assets/images/Meat.png';
 import img4 from '../assets/images/Drinks.png';
 import img5 from '../assets/images/Bakery.png';
 import {InterFont, textcolor} from '../styles/CustomStyles';
+import { useNavigation } from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -29,6 +30,7 @@ const categoryData = [
 ];
 
 const Categories = () => {
+ const navigation=useNavigation();
   const renderItem = ({item}) => (
     <View style={styles.main}>
       <View style={styles.box}>
@@ -37,7 +39,7 @@ const Categories = () => {
       <Text style={styles.text}>{item.name}</Text>
     </View>
   );
-
+  
   return (
     <View style={styles.container}>
       <View
@@ -50,7 +52,7 @@ const Categories = () => {
           Categories
         </Text>
         <View style={{flexDirection: 'row', gap: 4, alignItems: 'center'}}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('category-screen')}>
             <Text
               style={{
                 fontSize: 14,

@@ -171,7 +171,7 @@ const ProductDetails = () => {
             bgColor={textcolor.color3}
             text="Add to cart"
             width={width * 0.38}
-            onPress={() => navigation.navigate('bottom-tabs')}
+            onPress={() => navigation.navigate('cart-screen')}
             paddingVertical={8}
             textColor={textcolor.color4}
             fontFamily={InterFont.SemiBoldFont}

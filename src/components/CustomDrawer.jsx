@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import Logo from '../assets/images/apnadookan.png';
+import { InterFont } from '../styles/CustomStyles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -64,19 +65,20 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     height: '100%',
-    width: width * 0.6,
+    width: width * 0.5,
     backgroundColor: '#ACE03A',
     padding: 20,
     paddingTop: height * 0.05,
   },
   drawerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     color: '#fff',
     marginBottom: 20,
+    fontFamily:InterFont.BoldFont
   },
   Logo: {
-    width: width * 0.2,
-    height: height * 0.09,
+    width: width * 0.22,
+    height: height * 0.1,
   },
 });
 

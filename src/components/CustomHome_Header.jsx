@@ -5,26 +5,26 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Feather from 'react-native-vector-icons/dist/Feather';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import CustomSearchInput from './Custom_SearchInput';
-import { useSelector } from 'react-redux'; 
-import { selectWishlist } from '../redux/wishlistSlice';
+import {useSelector} from 'react-redux';
+import {selectWishlist} from '../redux/wishlistSlice';
 import CustomDrawer from './CustomDrawer';
+import {InterFont} from '../styles/CustomStyles';
 
 const {width, height} = Dimensions.get('window');
 
 const CustomHome_Header = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const cartCount = useSelector(state => state.cart.items.length); 
+  const cartCount = useSelector(state => state.cart.items.length);
   const wishlist = useSelector(selectWishlist);
   const wishlistCount = wishlist.length;
 
-
   const toggleDrawer = () => {
-    setDrawerVisible(!drawerVisible); 
+    setDrawerVisible(!drawerVisible);
   };
   return (
     <View style={styles.container}>
@@ -37,24 +37,22 @@ const CustomHome_Header = () => {
           <TouchableOpacity>
             <AntDesign name="heart" size={28} color="#fff" />
             {wishlistCount > 0 && (
-            <View
-               style={styles.badge}>
-              <Text style={{ color: '#fff', fontSize: 12 }}>
-                {wishlistCount}
-              </Text>
-            </View>
-          )}
+              <View style={styles.badge}>
+                <Text style={{color: '#fff', fontSize: 12}}>
+                  {wishlistCount}
+                </Text>
+              </View>
+            )}
           </TouchableOpacity>
 
           {/* <TouchableOpacity style={{marginLeft: 20}}>
             <FontAwesome name="shopping-cart" size={30} color="#fff" />
           </TouchableOpacity> */}
-          <TouchableOpacity style={{ marginLeft: 20 }}>
+          <TouchableOpacity style={{marginLeft: 20}}>
             <FontAwesome name="shopping-cart" size={30} color="#fff" />
             {cartCount > 0 && (
-              <View
-                 style={styles.badge}>
-                <Text style={{ color: 'white', fontSize: 12 }}>{cartCount}</Text>
+              <View style={styles.badge}>
+                <Text style={{color: 'white', fontSize: 12}}>{cartCount}</Text>
               </View>
             )}
           </TouchableOpacity>
@@ -68,21 +66,22 @@ const CustomHome_Header = () => {
           placeholder="Search for fruits, vegetables, groce..."
         />
       </View>
-
-      <CustomDrawer visible={drawerVisible} onClose={toggleDrawer}>
-        <TouchableOpacity onPress={toggleDrawer}>
-          <Text style={styles.drawerItem}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={toggleDrawer}>
-          <Text style={styles.drawerItem}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={toggleDrawer}>
-          <Text style={styles.drawerItem}>Settings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={toggleDrawer}>
-          <Text style={styles.drawerItem}>Logout</Text>
-        </TouchableOpacity>
-      </CustomDrawer>
+      <View>
+        <CustomDrawer visible={drawerVisible} onClose={toggleDrawer}>
+          <TouchableOpacity onPress={toggleDrawer}>
+            <Text style={styles.drawerItem}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={toggleDrawer}>
+            <Text style={styles.drawerItem}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={toggleDrawer}>
+            <Text style={styles.drawerItem}>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={toggleDrawer}>
+            <Text style={styles.drawerItem}>Logout</Text>
+          </TouchableOpacity>
+        </CustomDrawer>
+      </View>
     </View>
   );
 };
@@ -119,9 +118,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   drawerItem: {
-    color: '#fff',
+    color: '#000',
     fontSize: 18,
     marginVertical: 10,
+    fontFamily: InterFont.SemiBoldFont,
   },
 });
 

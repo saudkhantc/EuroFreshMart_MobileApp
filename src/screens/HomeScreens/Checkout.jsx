@@ -67,11 +67,11 @@ const Checkout = ({navigation}) => {
         <View style={styles.cartcontainer}>
           <Text style={styles.carttext}>Details</Text>
           <View style={styles.line2} />
-          <View style={{height:height*0.36}}>
+          <ScrollView style={{height:height*0.5}}>
            
+              {/* Deatil here */}
            
-           
-          </View>
+          </ScrollView>
 
           <View style={styles.line2} />
           <Text style={styles.totalText}>Payment Mode</Text>
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   summaryContainer: {
     marginHorizontal: 10,
     marginTop: 5,
-    marginBottom: 50,
+    marginBottom: height*0.1,
   },
   summaryRow: {
     flexDirection: 'row',
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     width: '100%',
-    height: 73,
+    height: height*0.11,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -253,6 +253,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     paddingBottom: 10,
+  
   },
 });
 

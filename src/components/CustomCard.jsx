@@ -12,7 +12,7 @@ import {InterFont, textcolor} from '../styles/CustomStyles';
 import {useDispatch} from 'react-redux';
 import {addItemToCart} from '../redux/cartSlice';
 import {addToWishlist} from '../redux/wishlistSlice';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -42,9 +42,8 @@ const CustomCard = ({
     dispatch(addToWishlist(item));
   };
 
-
   const navigateToProductDetails = () => {
-    navigation.navigate('product-details', { productId: id });
+    navigation.navigate('product-details', {productId: id});
   };
 
   return (

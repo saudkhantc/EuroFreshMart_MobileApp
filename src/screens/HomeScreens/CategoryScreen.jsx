@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginVertical: 10,
+    marginTop:10 ,
+    marginBottom:height*0.08
   },
   categoryCard: {
     width: width * 0.4,

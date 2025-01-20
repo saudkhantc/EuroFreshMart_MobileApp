@@ -4,6 +4,8 @@ import HomeScreen from '../screens/HomeScreens/HomeScreen';
 import ForgotPassword from '../screens/AuthScreens/ForgotPassword';
 import UpdatePassword from '../screens/AuthScreens/UpdatePassword';
 import CartScreen from '../screens/HomeScreens/CartScreen';
+import WishlistScreen from '../screens/WishlistScreen/WishlistScreen';
+import CategoryScreen from '../screens/HomeScreens/CategoryScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,8 +15,8 @@ const BottomTabs = () => {
       tabBar={(props) => <BottomtabNavigation {...props} />}
       screenOptions={{headerShown: false}}>
       <Tab.Screen name="homepage" component={HomeScreen} />
-      <Tab.Screen name="cart-screen" component={CartScreen} />
-      <Tab.Screen name="orderDetails2" component={ForgotPassword} />
+      <Tab.Screen name="category-screen" component={CategoryScreen} />
+      <Tab.Screen name="wishlist-screen" component={WishlistScreen} />
       <Tab.Screen name="update-password" component={UpdatePassword} />
     </Tab.Navigator>
   );

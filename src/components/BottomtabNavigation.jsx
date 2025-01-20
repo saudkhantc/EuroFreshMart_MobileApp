@@ -53,25 +53,24 @@
 //     paddingVertical: 10,
 //     // borderTopRightRadius: 20,
 //     // borderTopLeftRadius: 20,
-    
- 
+
 //   },
 // });
 
 // export default BottomtabNavigation;
 
-
 import {View, TouchableOpacity, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
 
 const {width, height} = Dimensions.get('window');
 const BottomtabNavigation = ({state, descriptors, navigation}) => {
   const icons = [
     {name: 'home', component: Entypo},
-    {name: 'shopping-cart', component: FontAwesome},
+    {name: 'grid', component: Feather},
     {name: 'heart', component: FontAwesome},
     {name: 'user-circle-o', component: FontAwesome},
   ];
@@ -109,23 +108,23 @@ const BottomtabNavigation = ({state, descriptors, navigation}) => {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: '#FFFFFF', 
+    backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    height:height*0.07,
+    height: height * 0.07,
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20, 
-    shadowColor: '#000', 
-    shadowOffset: {width: 0, height: 2}, 
-    shadowOpacity: 0.2, 
+    borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 5, 
-    position: 'absolute', 
-    bottom: 0, 
-    left: 0, 
-    right: 0, 
+    elevation: 5,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 

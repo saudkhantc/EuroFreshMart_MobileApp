@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ACE03A',
     padding: 20,
     paddingTop: height * 0.05,
+    
   },
   drawerTitle: {
     fontSize: 24,
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
   Logo: {
     width: width * 0.22,
     height: height * 0.1,
+  
   },
 });
 

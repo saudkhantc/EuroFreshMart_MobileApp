@@ -14,10 +14,12 @@ import {useSelector} from 'react-redux';
 import {selectWishlist} from '../redux/wishlistSlice';
 import CustomDrawer from './CustomDrawer';
 import {InterFont} from '../styles/CustomStyles';
+import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 
 const CustomHome_Header = () => {
+  const navigation = useNavigation();
   const [drawerVisible, setDrawerVisible] = useState(false);
   const cartCount = useSelector(state => state.cart.items.length);
   const wishlist = useSelector(selectWishlist);
@@ -34,7 +36,8 @@ const CustomHome_Header = () => {
         </TouchableOpacity>
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('wishlist-screen')}>
             <AntDesign name="heart" size={28} color="#fff" />
             {wishlistCount > 0 && (
               <View style={styles.badge}>
@@ -45,10 +48,9 @@ const CustomHome_Header = () => {
             )}
           </TouchableOpacity>
 
-          {/* <TouchableOpacity style={{marginLeft: 20}}>
-            <FontAwesome name="shopping-cart" size={30} color="#fff" />
-          </TouchableOpacity> */}
-          <TouchableOpacity style={{marginLeft: 20}}>
+          <TouchableOpacity
+            style={{marginLeft: 20}}
+            onPress={() => navigation.navigate('cart-screen')}>
             <FontAwesome name="shopping-cart" size={30} color="#fff" />
             {cartCount > 0 && (
               <View style={styles.badge}>
@@ -68,16 +70,29 @@ const CustomHome_Header = () => {
       </View>
       <View>
         <CustomDrawer visible={drawerVisible} onClose={toggleDrawer}>
-          <TouchableOpacity onPress={toggleDrawer}>
+          <TouchableOpacity>
             <Text style={styles.drawerItem}>Home</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleDrawer}>
+          <TouchableOpacity
+            onPress={() => {
+              toggleDrawer();
+              navigation.navigate('profile-screen');
+            }}>
             <Text style={styles.drawerItem}>Profile</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleDrawer}>
+          <TouchableOpacity
+            onPress={() => {
+              toggleDrawer();
+              navigation.navigate('setting-screen');
+            }}>
             <Text style={styles.drawerItem}>Settings</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleDrawer}>
+          <TouchableOpacity
+            onPress={() => {
+              toggleDrawer();
+              // Add logout functionality here if needed
+              console.log('Logout Pressed');
+            }}>
             <Text style={styles.drawerItem}>Logout</Text>
           </TouchableOpacity>
         </CustomDrawer>

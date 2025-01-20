@@ -13,6 +13,8 @@ import BottomTabs from './BottomTabs';
 import CategoryScreen from '../screens/HomeScreens/CategoryScreen';
 import ProductDetails from '../screens/HomeScreens/ProductDetails';
 import CartScreen from '../screens/HomeScreens/CartScreen';
+import Checkout from '../screens/HomeScreens/Checkout';
+import OrderDone from '../screens/HomeScreens/OrderDone';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +34,8 @@ const AppNavigation = () => {
         <Stack.Screen name="bottom-tabs" component={BottomTabs} />
          <Stack.Screen name="category-screen" component={CategoryScreen}/>
          <Stack.Screen name='cart-screen' component={CartScreen}/>
+         <Stack.Screen name='checkout' component={Checkout}/>
+         <Stack.Screen name='orderDone' component={OrderDone}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

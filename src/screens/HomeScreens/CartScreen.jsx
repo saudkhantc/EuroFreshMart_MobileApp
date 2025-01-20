@@ -11,14 +11,9 @@ import CustomButton from '../../components/CustomButton';
 
 const { width, height } = Dimensions.get('window');
 
-const CartScreen = () => {
-  const [activeButton, setActiveButton] = useState(0);
+const CartScreen = ({navigation}) => {
 
-  const handleButtonPress = (buttonIndex) => {
-    setActiveButton(buttonIndex === activeButton ? null : buttonIndex);
-  };
   const [quantity, setQuantity] = useState(0);
-
   const incrementQuantity = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
   };
@@ -53,29 +48,19 @@ const CartScreen = () => {
             <TouchableOpacity
               style={[
                 styles.button,
-                { borderColor: activeButton === 0 ? '#ACE03A' : textcolor.color8 }
+                { borderColor: '#ACE03A' }
               ]}
-              onPress={() => handleButtonPress(0)}
             >
               <Image source={cart} style={styles.image} />
             </TouchableOpacity>
             <View style={styles.line} />
             <TouchableOpacity
-              style={[
-                styles.button,
-                { borderColor: activeButton === 1 ? '#ACE03A' : textcolor.color8 }
-              ]}
-              onPress={() => handleButtonPress(1)}
-            >
+              style={styles.button}>
               <Image source={mail} style={styles.image} />
             </TouchableOpacity>
             <View style={styles.line} />
             <TouchableOpacity
-              style={[
-                styles.button,
-                { borderColor: activeButton === 2 ? '#ACE03A' : textcolor.color8 }
-              ]}
-              onPress={() => handleButtonPress(2)}
+              style={styles.button}
             >
               <Image source={check} style={styles.image} />
             </TouchableOpacity>
@@ -164,7 +149,7 @@ const CartScreen = () => {
       {/* Footer Section */}
       <View style={styles.footerContainer}>
         <CustomButton text={'Processed to Checkout'} width={width * 0.6}
-          onPress={() => navigation.navigate('login')}
+          onPress={() => navigation.navigate('checkout')}
           paddingVertical={12}
           textColor={textcolor.color4}
           bgColor={textcolor.color3}
@@ -183,7 +168,7 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     flexGrow: 1,
-    marginBottom: 20
+  //  marginBottom: 20
   },
   headerContainer: {
     width: '100%',
@@ -220,6 +205,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     justifyContent: 'center',
     alignItems: 'center',
+    borderColor:textcolor.color8
   },
   line: {
     alignSelf: 'center',
@@ -322,7 +308,7 @@ const styles = StyleSheet.create({
   summaryContainer: {
     marginHorizontal: 20,
     marginTop: 5,
-    
+    marginBottom:50
   },
   summaryRow: {
     flexDirection: 'row',

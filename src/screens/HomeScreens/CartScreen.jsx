@@ -1,18 +1,26 @@
-import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import cart from '../../assets/images/cart.png';
 import mail from '../../assets/images/mail.png';
 import check from '../../assets/images/check.png';
 import onion from '../../assets/images/onion.jpeg';
-import { InterFont, textcolor } from '../../styles/CustomStyles';
+import {InterFont, textcolor} from '../../styles/CustomStyles';
 import CustomButton from '../../components/CustomButton';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const CartScreen = ({navigation}) => {
-
   const [quantity, setQuantity] = useState(0);
   const incrementQuantity = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
@@ -26,163 +34,184 @@ const CartScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-<ScrollView showsVerticalScrollIndicator={false} style={styles.scrollview}>
-  <View style={styles.headerContainer}>
-    <ImageBackground
-      source={require('../../assets/images/Header.png')}
-      style={styles.headerImage}
-    >
-      <View style={styles.iconContainer}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={width * 0.07} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="cart-sharp" size={width * 0.07} color="white" />
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
-  </View>
-
-  <View style={styles.body}>
-    <View style={styles.buttonContainer}>
-      <TouchableOpacity style={[styles.button, { borderColor: '#ACE03A' }]}>
-        <Image source={cart} style={styles.image} />
-      </TouchableOpacity>
-      <View style={styles.line} />
-      <TouchableOpacity style={styles.button}>
-        <Image source={mail} style={styles.image} />
-      </TouchableOpacity>
-      <View style={styles.line} />
-      <TouchableOpacity style={styles.button}>
-        <Image source={check} style={styles.image} />
-      </TouchableOpacity>
-    </View>
-  </View>
-
-  <View style={styles.cartcontainer}>
-    <Text style={styles.carttext}>Cart</Text>
-    <View style={styles.line2} />
-    <Text style={styles.carttext}>Item <Text>( 4 )</Text> </Text>
-
-    {/* Cart item list */}
-    <ScrollView showsVerticalScrollIndicator={false} style={{height:height*0.5}} nestedScrollEnabled={true}>
-      {/* Cart item */}
-      <View style={styles.row}>
-        <Image source={onion} style={styles.imagecart} />
-        <View style={styles.textContainer}>
-          <Text style={styles.productName}>Carrot</Text>
-          <Text style={styles.productQuantity}>1 kg</Text>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity style={styles.quantityButton}>
-              <Text style={styles.quantityButtonText} onPress={decrementQuantity}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.quantityBox}>
-              <Text style={styles.quantityText}>{quantity}</Text>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollview}>
+        <View style={styles.headerContainer}>
+          <ImageBackground
+            source={require('../../assets/images/Header.png')}
+            style={styles.headerImage}>
+            <View style={styles.iconContainer}>
+              <TouchableOpacity>
+                <Ionicons name="arrow-back" size={width * 0.07} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Ionicons name="cart-sharp" size={width * 0.07} color="white" />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.quantityButton}>
-              <Text style={styles.quantityButtonText} onPress={incrementQuantity}>+</Text>
+          </ImageBackground>
+        </View>
+
+        <View style={styles.body}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={[styles.button, {borderColor: '#ACE03A'}]}>
+              <Image source={cart} style={styles.image} />
+            </TouchableOpacity>
+            <View style={styles.line} />
+            <TouchableOpacity style={styles.button}>
+              <Image source={mail} style={styles.image} />
+            </TouchableOpacity>
+            <View style={styles.line} />
+            <TouchableOpacity style={styles.button}>
+              <Image source={check} style={styles.image} />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.deleteIconContainer}>
-          <AntDesign name="delete" size={25} color={textcolor.color2} />
-        </View>
-      </View>
 
-      {/* Repeat Cart item for more items */}
-      {/* Cart item 2 */}
-      <View style={styles.row}>
-        <Image source={onion} style={styles.imagecart} />
-        <View style={styles.textContainer}>
-          <Text style={styles.productName}>Carrot</Text>
-          <Text style={styles.productQuantity}>1 kg</Text>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity style={styles.quantityButton}>
-              <Text style={styles.quantityButtonText} onPress={decrementQuantity}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.quantityBox}>
-              <Text style={styles.quantityText}>{quantity}</Text>
+        <View style={styles.cartcontainer}>
+          <Text style={styles.carttext}>Cart</Text>
+          <View style={styles.line2} />
+          <Text style={styles.carttext}>
+            Item <Text>( 4 )</Text>{' '}
+          </Text>
+
+          {/* Cart item list */}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{height: height * 0.5}}
+            nestedScrollEnabled={true}>
+            {/* Cart item */}
+            <View style={styles.row}>
+              <Image source={onion} style={styles.imagecart} />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>Carrot</Text>
+                <Text style={styles.productQuantity}>1 kg</Text>
+                <View style={styles.quantityContainer}>
+                  <TouchableOpacity style={styles.quantityButton}>
+                    <Text
+                      style={styles.quantityButtonText}
+                      onPress={decrementQuantity}>
+                      -
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={styles.quantityBox}>
+                    <Text style={styles.quantityText}>{quantity}</Text>
+                  </View>
+                  <TouchableOpacity style={styles.quantityButton}>
+                    <Text
+                      style={styles.quantityButtonText}
+                      onPress={incrementQuantity}>
+                      +
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.deleteIconContainer}>
+                <AntDesign name="delete" size={25} color={textcolor.color2} />
+              </View>
             </View>
-            <TouchableOpacity style={styles.quantityButton}>
-              <Text style={styles.quantityButtonText} onPress={incrementQuantity}>+</Text>
-            </TouchableOpacity>
+
+            {/* Repeat Cart item for more items */}
+            {/* Cart item 2 */}
+            <View style={styles.row}>
+              <Image source={onion} style={styles.imagecart} />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>Carrot</Text>
+                <Text style={styles.productQuantity}>1 kg</Text>
+                <View style={styles.quantityContainer}>
+                  <TouchableOpacity style={styles.quantityButton}>
+                    <Text
+                      style={styles.quantityButtonText}
+                      onPress={decrementQuantity}>
+                      -
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={styles.quantityBox}>
+                    <Text style={styles.quantityText}>{quantity}</Text>
+                  </View>
+                  <TouchableOpacity style={styles.quantityButton}>
+                    <Text
+                      style={styles.quantityButtonText}
+                      onPress={incrementQuantity}>
+                      +
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.deleteIconContainer}>
+                <AntDesign name="delete" size={25} color={textcolor.color2} />
+              </View>
+            </View>
+
+            {/* Cart item 3 */}
+            <View style={styles.row}>
+              <Image source={onion} style={styles.imagecart} />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>Carrot</Text>
+                <Text style={styles.productQuantity}>1 kg</Text>
+                <View style={styles.quantityContainer}>
+                  <TouchableOpacity style={styles.quantityButton}>
+                    <Text
+                      style={styles.quantityButtonText}
+                      onPress={decrementQuantity}>
+                      -
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={styles.quantityBox}>
+                    <Text style={styles.quantityText}>{quantity}</Text>
+                  </View>
+                  <TouchableOpacity style={styles.quantityButton}>
+                    <Text
+                      style={styles.quantityButtonText}
+                      onPress={incrementQuantity}>
+                      +
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.deleteIconContainer}>
+                <AntDesign name="delete" size={25} color={textcolor.color2} />
+              </View>
+            </View>
+          </ScrollView>
+
+          <View style={styles.line2} />
+          <View style={styles.summaryContainer}>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryText}>Subtotal</Text>
+              <Text style={styles.summaryAmount}>$ 130</Text>
+            </View>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryText}>Tax</Text>
+              <Text style={styles.summaryAmount}>$ 130</Text>
+            </View>
+            <View style={styles.summaryRow}>
+              <Text style={styles.summaryText}>Discount</Text>
+              <Text style={styles.summaryAmount}>$ 130</Text>
+            </View>
+            <View style={[styles.summaryRow, styles.totalRow]}>
+              <Text style={[styles.summaryText, styles.totalText]}>Total</Text>
+              <Text style={[styles.summaryAmount, styles.totalText]}>
+                $ 130
+              </Text>
+            </View>
           </View>
         </View>
-        <View style={styles.deleteIconContainer}>
-          <AntDesign name="delete" size={25} color={textcolor.color2} />
-        </View>
-      </View>
 
-      {/* Cart item 3 */}
-      <View style={styles.row}>
-        <Image source={onion} style={styles.imagecart} />
-        <View style={styles.textContainer}>
-          <Text style={styles.productName}>Carrot</Text>
-          <Text style={styles.productQuantity}>1 kg</Text>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity style={styles.quantityButton}>
-              <Text style={styles.quantityButtonText} onPress={decrementQuantity}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.quantityBox}>
-              <Text style={styles.quantityText}>{quantity}</Text>
-            </View>
-            <TouchableOpacity style={styles.quantityButton}>
-              <Text style={styles.quantityButtonText} onPress={incrementQuantity}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.deleteIconContainer}>
-          <AntDesign name="delete" size={25} color={textcolor.color2} />
-        </View>
-      </View>
-
-    </ScrollView>
-
-    <View style={styles.line2} />
-    <View style={styles.summaryContainer}>
-      <View style={styles.summaryRow}>
-        <Text style={styles.summaryText}>Subtotal</Text>
-        <Text style={styles.summaryAmount}>$ 130</Text>
-      </View>
-      <View style={styles.summaryRow}>
-        <Text style={styles.summaryText}>Tax</Text>
-        <Text style={styles.summaryAmount}>$ 130</Text>
-      </View>
-      <View style={styles.summaryRow}>
-        <Text style={styles.summaryText}>Discount</Text>
-        <Text style={styles.summaryAmount}>$ 130</Text>
-      </View>
-      <View style={[styles.summaryRow, styles.totalRow]}>
-        <Text style={[styles.summaryText, styles.totalText]}>Total</Text>
-        <Text style={[styles.summaryAmount, styles.totalText]}>$ 130</Text>
-      </View>
-    </View>
-  </View>
-
-  {/* Footer Section */}
-  <View style={styles.footerContainer}>
-    <CustomButton
-      text={'Proceed to Checkout'}
-      width={width * 0.6}
-      onPress={() => navigation.navigate('checkout')}
-      paddingVertical={12}
-      textColor={textcolor.color4}
-      bgColor={textcolor.color3}
-      fontFamily={InterFont.SemiBoldFont}
-      fontSize={14}
-    />
-  </View>
-</ScrollView>
+      </ScrollView>
 
       {/* Footer Section */}
       <View style={styles.footerContainer}>
-        <CustomButton text={'Processed to Checkout'} width={width * 0.6}
+        <CustomButton
+          text={'Processed to Checkout'}
+          width={width * 0.6}
           onPress={() => navigation.navigate('checkout')}
-          paddingVertical={12}
+          paddingVertical={10}
           textColor={textcolor.color4}
           bgColor={textcolor.color3}
           fontFamily={InterFont.SemiBoldFont}
-          fontSize={14} />
+          fontSize={16}
+        />
       </View>
     </View>
   );
@@ -196,7 +225,7 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     flexGrow: 1,
-  //  marginBottom: 20
+    //  marginBottom: 20
   },
   headerContainer: {
     width: '100%',
@@ -233,13 +262,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor:textcolor.color8
+    borderColor: textcolor.color8,
   },
   line: {
     alignSelf: 'center',
     height: 3,
     backgroundColor: textcolor.color8,
-    width: width * 0.20,
+    width: width * 0.2,
     marginBottom: 10,
   },
   image: {
@@ -250,7 +279,7 @@ const styles = StyleSheet.create({
   cartcontainer: {
     marginHorizontal: 20,
     marginTop: 12,
-    marginBottom: 20
+    marginBottom: 20,
   },
   carttext: {
     fontSize: 20,
@@ -274,7 +303,7 @@ const styles = StyleSheet.create({
     width: width * 0.3,
     height: width * 0.25,
     resizeMode: 'cover',
-    borderRadius: 10
+    borderRadius: 10,
   },
   textContainer: {
     flex: 1,
@@ -336,12 +365,11 @@ const styles = StyleSheet.create({
   summaryContainer: {
     marginHorizontal: 20,
     marginTop: 5,
-    marginBottom:50
   },
   summaryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 2
+    marginVertical: 2,
   },
   summaryText: {
     fontSize: 16,
@@ -356,25 +384,18 @@ const styles = StyleSheet.create({
   totalRow: {
     borderTopColor: textcolor.color8,
     marginTop: 7,
-    marginBottom:16
-
+    marginBottom: 16,
   },
   totalText: {
     fontWeight: 'bold',
     color: textcolor.color2,
   },
-   footerContainer: {
+  footerContainer: {
     width: '100%',
-    height: height*0.11, 
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    position: 'absolute',
-    bottom: 0, 
-    paddingBottom: 10, 
   },
 });
-
-

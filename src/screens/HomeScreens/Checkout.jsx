@@ -111,11 +111,11 @@ const Checkout = ({navigation}) => {
           text={'Done'}
           width={width * 0.4}
           onPress={() => navigation.navigate('orderDone')}
-          paddingVertical={12}
+          paddingVertical={10}
           textColor={textcolor.color4}
           bgColor={textcolor.color3}
           fontFamily={InterFont.SemiBoldFont}
-          fontSize={14}
+          fontSize={16}
         />
       </View>
     </View>
@@ -244,16 +244,11 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     width: '100%',
-    height: height*0.11,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    position: 'absolute',
-    bottom: 0,
-    paddingBottom: 10,
-  
   },
 });
 

@@ -32,11 +32,11 @@ const OrderDone = ({ navigation }) => {
                     text={'Continue Shopping'}
                     width={width * 0.6}
                     onPress={() => navigation.navigate('home-screen')}
-                    paddingVertical={12}
+                    paddingVertical={10}
                     textColor={textcolor.color4}
                     bgColor={textcolor.color3}
                     fontFamily={InterFont.SemiBoldFont}
-                    fontSize={14}
+                    fontSize={16}
                 />
             </View>
         </View>

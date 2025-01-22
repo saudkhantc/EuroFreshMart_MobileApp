@@ -69,10 +69,8 @@ const Checkout = ({navigation}) => {
           <View style={styles.line2} />
           <ScrollView style={{height:height*0.5}}>
            
-              {/* Deatil here */}
-           
+                         {/* Deatil here */}
           </ScrollView>
-
           <View style={styles.line2} />
           <Text style={styles.totalText}>Payment Mode</Text>
           <View style={styles.summaryContainer}>

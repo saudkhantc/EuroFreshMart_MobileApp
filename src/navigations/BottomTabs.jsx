@@ -2,8 +2,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import BottomtabNavigation from '../components/BottomtabNavigation';
 import HomeScreen from '../screens/HomeScreens/HomeScreen';
 import ForgotPassword from '../screens/AuthScreens/ForgotPassword';
-import UpdatePassword from '../screens/AuthScreens/UpdatePassword';
 import CartScreen from '../screens/HomeScreens/CartScreen';
+import Profile from '../screens/ProfileScreen/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,7 @@ const BottomTabs = () => {
       <Tab.Screen name="homepage" component={HomeScreen} />
       <Tab.Screen name="cart-screen" component={CartScreen} />
       <Tab.Screen name="orderDetails2" component={ForgotPassword} />
-      <Tab.Screen name="update-password" component={UpdatePassword} />
+      <Tab.Screen name="profile" component={Profile} />
     </Tab.Navigator>
   );
 };

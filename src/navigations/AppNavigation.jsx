@@ -17,6 +17,8 @@ import WishlistScreen from '../screens/WishlistScreen/WishlistScreen';
 import SettingScreen from '../screens/SettingScreen/SettingScreen';
 import Checkout from '../screens/HomeScreens/Checkout';
 import OrderDone from '../screens/HomeScreens/OrderDone';
+import Profile from '../screens/ProfileScreen/Profile';
+import EditProfile from '../screens/ProfileScreen/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +26,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="login"
+        initialRouteName="splashScreen"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="splashScreen" component={SplashScreen} />
         <Stack.Screen name="authScreen" component={AuthScreen} />
@@ -42,6 +44,8 @@ const AppNavigation = () => {
         <Stack.Screen name="setting-screen" component={SettingScreen} />
         <Stack.Screen name="checkout" component={Checkout} />
         <Stack.Screen name="orderDone" component={OrderDone} />
+        <Stack.Screen name='profile' component={Profile}/>
+        <Stack.Screen name="editprofile" component={EditProfile}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -42,10 +42,10 @@ const CartScreen = ({navigation}) => {
           >
             <View style={styles.iconContainer}>
               <TouchableOpacity>
-                <Ionicons name="arrow-back" size={width * 0.07} color="white" />
+                <Ionicons name="arrow-back" size={width * 0.09} color="white" />
               </TouchableOpacity>
               <TouchableOpacity>
-                <Ionicons name="cart-sharp" size={width * 0.07} color="white" />
+                <Ionicons name="cart-sharp" size={width * 0.09} color="white" />
               </TouchableOpacity>
             </View>
           </ImageBackground>

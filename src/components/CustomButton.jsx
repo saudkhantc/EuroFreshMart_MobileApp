@@ -13,6 +13,7 @@ const CustomButton = ({
   bgColor,
   text,
   width,
+  height,
   onPress,
   image,
   paddingVertical = 12,
@@ -27,6 +28,7 @@ const CustomButton = ({
         {
           backgroundColor: bgColor,
           width: width,
+          height:height,
           paddingVertical,
           flexDirection: image ? 'row' : 'column',
         },

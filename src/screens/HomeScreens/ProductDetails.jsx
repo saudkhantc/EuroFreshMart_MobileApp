@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React,{useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import img1 from '../../assets/images/productDetail.jpeg';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -24,7 +24,17 @@ const ProductDetails = () => {
   const handleBackPress = () => {
     navigation.goBack();
   };
+  const [quantity, setQuantity] = useState(0);
+  
+  const incrementQuantity = () => {
+    setQuantity(prevQuantity => prevQuantity + 1);
+  };
 
+  const decrementQuantity = () => {
+    if (quantity > 0) {
+      setQuantity(prevQuantity => prevQuantity - 1);
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -124,7 +134,7 @@ const ProductDetails = () => {
 
       <View style={styles.footer}>
         <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
-          <TouchableOpacity
+          <TouchableOpacity onPress={decrementQuantity}
             style={{
               borderWidth: 1,
               borderColor: '#ACE03A',
@@ -151,11 +161,11 @@ const ProductDetails = () => {
                 fontFamily: InterFont.SemiBoldFont,
                 textAlign: 'center',
               }}>
-              2
+              {quantity}
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
+          <TouchableOpacity  onPress={incrementQuantity}
             style={{
               borderWidth: 1,
               borderColor: '#ACE03A',

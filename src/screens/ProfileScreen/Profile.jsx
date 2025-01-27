@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
@@ -11,13 +11,16 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather'
+import Feather from 'react-native-vector-icons/Feather';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
 import profile from "../../assets/images/Profile.png";
+
 const { width, height } = Dimensions.get('window');
 
 const Profile = () => {
   const navigation = useNavigation();
+
+  const [activeTab, setActiveTab] = useState('order'); // State to track the active tab
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -27,6 +30,13 @@ const Profile = () => {
   const orders = [
     { id: '242421', date: '12/01/2025', value: '$150' },
     { id: '242422', date: '13/01/2025', value: '$200' },
+  ];
+
+  // Sample favorite data
+  const favorites = [
+    { id: '992421', date: '12/01/2025', value: '$150' },
+    { id: '34422', date: '13/01/2025', value: '$200' },
+    { id: '2422', date: '13/01/2025', value: '$200' },
   ];
 
   return (
@@ -40,7 +50,7 @@ const Profile = () => {
               <Ionicons name="arrow-back" size={30} color="#fff" style={styles.icon} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>navigation.navigate('editprofile')}>
+            <TouchableOpacity onPress={() => navigation.navigate('editprofile')}>
               <Feather name="edit" size={30} color="#fff" style={styles.icon} />
             </TouchableOpacity>
           </View>
@@ -55,33 +65,78 @@ const Profile = () => {
           <Text style={styles.heading}>Profile</Text>
 
           <View style={styles.tabsContainer}>
-            <TouchableOpacity style={styles.tabButton}>
-              <Text style={[styles.tabText,{color:textcolor.color3,borderColor:textcolor.color3,borderBottomWidth:3}]}>Order</Text>
+            <TouchableOpacity
+              style={styles.tabButton}
+              onPress={() => setActiveTab('order')}>
+              <Text
+                style={[
+                  styles.tabText,
+                  activeTab === 'order' && {
+                    color: textcolor.color3,
+                    borderBottomWidth: 3,
+                    borderColor: textcolor.color3,
+                  },
+                ]}>
+                Order ( 2 )
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.tabButton}>
-              <Text style={styles.tabText}>Favorite Products</Text>
+            <TouchableOpacity
+              style={styles.tabButton}
+              onPress={() => setActiveTab('favorite')}>
+              <Text
+                style={[
+                  styles.tabText,
+                  activeTab === 'favorite' && {
+                    color: textcolor.color3,
+                    borderBottomWidth: 3,
+                    borderColor: textcolor.color3,
+                  },
+                ]}>
+                Favorite Products (3)
+              </Text>
             </TouchableOpacity>
           </View>
 
-          {/* Order details */}
-          <View style={styles.orderContainer}>
-            <View style={styles.orderHeader}>
-              <Text style={styles.orderHeaderText}>Order ID</Text>
-              <Text style={styles.orderHeaderText}>Date</Text>
-              <Text style={styles.orderHeaderText}>Value</Text>
-            </View>
-
-            {orders.map((order, index) => (
-              <View key={index} style={styles.orderRow}>
-                <Text style={styles.orderText}>{order.id}</Text>
-                <Text style={styles.orderText}>{order.date}</Text>
-                <Text style={styles.orderText}>{order.value}</Text>
-                <TouchableOpacity style={styles.viewButton}>
-                  <Text style={styles.viewButtonText}>View</Text>
-                </TouchableOpacity>
+          {/* Conditionally render content based on the selected tab */}
+          {activeTab === 'order' ? (
+            <View style={styles.orderContainer}>
+              <View style={styles.orderHeader}>
+                <Text style={styles.orderHeaderText}>Order ID</Text>
+                <Text style={styles.orderHeaderText}>Date</Text>
+                <Text style={styles.orderHeaderText}>Value</Text>
               </View>
-            ))}
-          </View>
+
+              {orders.map((order, index) => (
+                <View key={index} style={styles.orderRow}>
+                  <Text style={styles.orderText}>{order.id}</Text>
+                  <Text style={styles.orderText}>{order.date}</Text>
+                  <Text style={styles.orderText}>{order.value}</Text>
+                  <TouchableOpacity style={styles.viewButton}>
+                    <Text style={styles.viewButtonText}>View</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+          ) : (
+            <View style={styles.orderContainer}>
+              <View style={styles.orderHeader}>
+                <Text style={styles.orderHeaderText}>Product ID</Text>
+                <Text style={styles.orderHeaderText}>Date</Text>
+                <Text style={styles.orderHeaderText}>Value</Text>
+              </View>
+
+              {favorites.map((favoriteItem, index) => (
+                <View key={index} style={styles.orderRow}>
+                  <Text style={styles.orderText}>{favoriteItem.id}</Text>
+                  <Text style={styles.orderText}>{favoriteItem.date}</Text>
+                  <Text style={styles.orderText}>{favoriteItem.value}</Text>
+                  <TouchableOpacity style={styles.viewButton}>
+                    <Text style={styles.viewButtonText}>View</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -130,7 +185,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 24,
     fontFamily: InterFont.BoldFont,
-   marginBottom:20
+    marginBottom: 20,
   },
   tabsContainer: {
     flexDirection: 'row',
@@ -144,9 +199,7 @@ const styles = StyleSheet.create({
     color: textcolor.color1,
     fontFamily: InterFont.SemiBoldFont,
     textAlign: 'center',
-    //borderBottomWidth: 2,
-    borderBottomColor: textcolor.color1,
-    marginRight:10
+    marginRight: 10,
   },
   orderContainer: {
     width: "100%",
@@ -196,8 +249,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
   },
+  favoriteContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
 });
 
 export default Profile;
-
-

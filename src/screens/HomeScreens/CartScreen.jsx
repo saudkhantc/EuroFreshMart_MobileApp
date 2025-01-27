@@ -16,9 +16,9 @@ const CartScreen = ({navigation}) => {
   const [quantity, setQuantity] = useState(0);
   
   const cartItems = [
-    { id: 1, name: 'Carrot', quantity: '1 kg', image: onion },
-    { id: 2, name: 'Onion', quantity: '2 kg', image: onion },
-    { id: 3, name: 'Tomato', quantity: '500 gm', image: onion },
+    { id: 1, name: 'Carrot', quantity: '1 kg', image: onion ,Price:'$120'},
+    { id: 2, name: 'Onion', quantity: '2 kg', image: onion ,Price:'$50'},
+    { id: 3, name: 'Tomato', quantity: '500 gm', image: onion,Price:'$100' },
     { id: 4, name: 'Potato', quantity: '3 kg', image: onion }
   ];
 
@@ -79,7 +79,10 @@ const CartScreen = ({navigation}) => {
                 <Image source={item.image} style={styles.imagecart} />
                 <View style={styles.textContainer}>
                   <Text style={styles.productName}>{item.name}</Text>
-                  <Text style={styles.productQuantity}>{item.quantity}</Text>
+                  <View style={{flexDirection:'row',marginHorizontal:3}}>
+                    <Text style={styles.productQuantity}>{item.quantity}</Text>
+                  <Text style={{padding:1,marginLeft:9}}>{item.Price}</Text>
+                  </View>
                   <View style={styles.quantityContainer}>
                     <TouchableOpacity style={styles.quantityButton}>
                       <Text style={styles.quantityButtonText} onPress={decrementQuantity}>-</Text>
@@ -92,9 +95,9 @@ const CartScreen = ({navigation}) => {
                     </TouchableOpacity>
                   </View>
                 </View>
-                <View style={styles.deleteIconContainer}>
+                <TouchableOpacity style={styles.deleteIconContainer}>
                   <AntDesign name="delete" size={25} color={textcolor.color2} />
-                </View>
+                </TouchableOpacity>
               </View>
             ))}
           </ScrollView>
@@ -262,8 +265,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   deleteIconContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf:'flex-end',
+    marginBottom:15
   },
   deleteIcon: {
     fontSize: width * 0.08,

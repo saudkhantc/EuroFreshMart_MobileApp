@@ -33,11 +33,21 @@ const SettingScreen = () => {
         <View style={styles.header}>
           <View style={styles.iconContainer}>
             <TouchableOpacity onPress={handleBackPress}>
-              <AntDesign name="arrowleft" size={30} color="#fff" style={styles.icon} />
+              <AntDesign
+                name="arrowleft"
+                size={30}
+                color="#fff"
+                style={styles.icon}
+              />
             </TouchableOpacity>
 
             <TouchableOpacity>
-              <FontAwesome name="shopping-cart" size={30} color="#fff" style={styles.icon} />
+              <FontAwesome
+                name="shopping-cart"
+                size={30}
+                color="#fff"
+                style={styles.icon}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -57,7 +67,8 @@ const SettingScreen = () => {
                 <Feather name="user" size={22} />
                 <Text style={styles.rowText}>Edit profile</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.rowContainer, styles.rowSpacing]}>
+              <TouchableOpacity
+                style={[styles.rowContainer, styles.rowSpacing]}>
                 <AntDesign name="bells" size={22} />
                 <Text style={styles.rowText}>Notifications</Text>
               </TouchableOpacity>
@@ -78,7 +89,8 @@ const SettingScreen = () => {
                 <AntDesign name="delete" size={22} />
                 <Text style={styles.rowText}>Delete Account</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.rowContainer, styles.rowSpacing]}>
+              <TouchableOpacity
+                style={[styles.rowContainer, styles.rowSpacing]}>
                 <MaterialIcons name="logout" size={22} />
                 <Text style={styles.rowText}>Log Out</Text>
               </TouchableOpacity>

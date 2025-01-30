@@ -1,18 +1,26 @@
-import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import cart from '../../assets/images/cart.png';
 import mail from '../../assets/images/mail.png';
 import check from '../../assets/images/check.png';
 import onion from '../../assets/images/onion.jpeg';
-import { InterFont, textcolor } from '../../styles/CustomStyles';
+import {InterFont, textcolor} from '../../styles/CustomStyles';
 import CustomButton from '../../components/CustomButton';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const CartScreen = ({navigation}) => {
-
   const [quantity, setQuantity] = useState(0);
   
   const cartItems = [
@@ -149,7 +157,7 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     flexGrow: 1,
-  //  marginBottom: 20
+    //  marginBottom: 20
   },
   headerContainer: {
     width: '100%',
@@ -186,13 +194,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor:textcolor.color8
+    borderColor: textcolor.color8,
   },
   line: {
     alignSelf: 'center',
     height: 3,
     backgroundColor: textcolor.color8,
-    width: width * 0.20,
+    width: width * 0.2,
     marginBottom: 10,
   },
   image: {
@@ -203,7 +211,7 @@ const styles = StyleSheet.create({
   cartcontainer: {
     marginHorizontal: 20,
     marginTop: 12,
-    marginBottom: 20
+    marginBottom: 20,
   },
   carttext: {
     fontSize: 20,
@@ -227,7 +235,7 @@ const styles = StyleSheet.create({
     width: width * 0.3,
     height: width * 0.25,
     resizeMode: 'cover',
-    borderRadius: 10
+    borderRadius: 10,
   },
   textContainer: {
     flex: 1,
@@ -289,12 +297,11 @@ const styles = StyleSheet.create({
   summaryContainer: {
     marginHorizontal: 20,
     marginTop: 5,
-    marginBottom:50
   },
   summaryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 2
+    marginVertical: 2,
   },
   summaryText: {
     fontSize: 16,
@@ -309,22 +316,17 @@ const styles = StyleSheet.create({
   totalRow: {
     borderTopColor: textcolor.color8,
     marginTop: 7,
-
   },
   totalText: {
     fontWeight: 'bold',
     color: textcolor.color2,
   },
-   footerContainer: {
+  footerContainer: {
     width: '100%',
-    height: height*0.11, 
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    paddingBottom: 10, 
+    borderTopRightRadius: 20
   },
 });
-
-

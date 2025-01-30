@@ -9,10 +9,15 @@ import carrot from '../../assets/images/carrot.jpeg';
 import chilli from '../../assets/images/chilli.jpeg';
 import onion from '../../assets/images/onion.jpeg';
 import potatoes from '../../assets/images/potatoes.jpeg';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../redux/cartSlice';
 
 const {width, height} = Dimensions.get('window');
 
 const HomeScreen = () => {
+  const loggedUser = useSelector(selectUser)
+  console.log(loggedUser)
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView

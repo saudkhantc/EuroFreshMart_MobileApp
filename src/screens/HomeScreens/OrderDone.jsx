@@ -31,12 +31,12 @@ const OrderDone = ({ navigation }) => {
                 <CustomButton
                     text={'Continue Shopping'}
                     width={width * 0.6}
-                    onPress={() => navigation.navigate('home-screen')}
-                    paddingVertical={12}
+                    onPress={() => navigation.navigate('bottom-tabs')}
+                    paddingVertical={10}
                     textColor={textcolor.color4}
                     bgColor={textcolor.color3}
                     fontFamily={InterFont.SemiBoldFont}
-                    fontSize={14}
+                    fontSize={16}
                 />
             </View>
         </View>

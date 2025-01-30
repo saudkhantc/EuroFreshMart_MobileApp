@@ -1,8 +1,8 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import BottomtabNavigation from '../components/BottomtabNavigation';
 import HomeScreen from '../screens/HomeScreens/HomeScreen';
-import ForgotPassword from '../screens/AuthScreens/ForgotPassword';
-import CartScreen from '../screens/HomeScreens/CartScreen';
+import WishlistScreen from '../screens/WishlistScreen/WishlistScreen';
+import CategoryScreen from '../screens/HomeScreens/CategoryScreen';
 import Profile from '../screens/ProfileScreen/Profile';
 
 const Tab = createBottomTabNavigator();
@@ -13,9 +13,9 @@ const BottomTabs = () => {
       tabBar={(props) => <BottomtabNavigation {...props} />}
       screenOptions={{headerShown: false}}>
       <Tab.Screen name="homepage" component={HomeScreen} />
-      <Tab.Screen name="cart-screen" component={CartScreen} />
-      <Tab.Screen name="orderDetails2" component={ForgotPassword} />
-      <Tab.Screen name="profile" component={Profile} />
+      <Tab.Screen name="category-screen" component={CategoryScreen} />
+      <Tab.Screen name="wishlist-screen" component={WishlistScreen} />
+      <Tab.Screen name='profile' component={Profile}/>
     </Tab.Navigator>
   );
 };

@@ -1,27 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dimensions,
   StyleSheet,
   Text,
   View,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
-import {InterFont, textcolor} from '../../styles/CustomStyles';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import AuthHeader from '../../components/AuthHeader';
 import img1 from '../../assets/images/fruit1.png';
 import CustomButton from '../../components/CustomButton';
 import googleicon from '../../assets/images/google-icon.png';
 import facebookicon from '../../assets/images/facebook.png';
+import { InterFont, textcolor } from '../../styles/CustomStyles';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const AuthScreen = () => {
   const navigation = useNavigation();
+  const [selectedButton, setSelectedButton] = useState(null);
+
+  const handleButtonSelect = (buttonType) => {
+    setSelectedButton(buttonType);
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,22 +40,28 @@ const AuthScreen = () => {
             <Text style={styles.heading}>Already have an account?</Text>
           </View>
 
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             <CustomButton
-              bgColor={textcolor.color3}
+              bgColor={selectedButton==='login'?textcolor.color3:textcolor.color5}
               text="Login"
               width={width * 0.7}
-              onPress={() => navigation.navigate('login')}
+              onPress={() => {
+                handleButtonSelect('login');
+                navigation.navigate('login');
+              }}
               paddingVertical={12}
               textColor={textcolor.color4}
               fontFamily={InterFont.SemiBoldFont}
               fontSize={18}
             />
             <CustomButton
-              bgColor={textcolor.color5}
+              bgColor={selectedButton==='register'?textcolor.color3:textcolor.color5}
               text="Register"
               width={width * 0.7}
-              onPress={() => navigation.navigate('register')}
+              onPress={() => {
+                handleButtonSelect('register');
+                navigation.navigate('register');
+              }}
               paddingVertical={12}
               textColor={textcolor.color4}
               fontFamily={InterFont.SemiBoldFont}
@@ -70,24 +79,30 @@ const AuthScreen = () => {
 
           <View style={styles.AuthButtons}>
             <CustomButton
-              bgColor={textcolor.color9}
+              bgColor={selectedButton ==='google'? textcolor.color7:textcolor.color9}
               text="Google"
               width={width * 0.7}
-              onPress={() => console.log('Button Pressed')}
+              onPress={() => {
+                handleButtonSelect('google')
+                console.log('Google Button Pressed')
+              }}
               image={googleicon}
               paddingVertical={10}
-              textColor={textcolor.color8}
+              textColor={selectedButton === 'google' ? textcolor.color6 : textcolor.color8}
               fontFamily={InterFont.MediumFont}
               fontSize={14}
             />
             <CustomButton
-              bgColor={textcolor.color7}
+              bgColor={selectedButton==='facebook'?textcolor.color7:textcolor.color9}
               text="Facebook"
               width={width * 0.7}
-              onPress={() => console.log('Button Pressed')}
+              onPress={() => {
+                handleButtonSelect('facebook')
+                console.log('Facebook Button Pressed')
+              }}
               image={facebookicon}
               paddingVertical={10}
-              textColor={textcolor.color6}
+              textColor={selectedButton === 'facebook' ? textcolor.color6 : textcolor.color8}
               fontFamily={InterFont.MediumFont}
               fontSize={14}
             />
@@ -101,7 +116,7 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#fff"
+    backgroundColor: "#fff",
   },
   scrollContainer: {
     flexGrow: 1,

@@ -160,7 +160,7 @@ import {
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { InterFont, textcolor } from '../styles/CustomStyles';
 import { useDispatch } from 'react-redux';
-import { addItemToCart, removeItemFromCart } from '../redux/cartSlice';
+import { addItemToCart, removeItemFromCart } from '../redux/userSlice';
 import { addToWishlist } from '../redux/wishlistSlice';
 import { useNavigation } from '@react-navigation/native';
 

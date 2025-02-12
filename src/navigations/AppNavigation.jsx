@@ -19,6 +19,7 @@ import Checkout from '../screens/HomeScreens/Checkout';
 import OrderDone from '../screens/HomeScreens/OrderDone';
 import Profile from '../screens/ProfileScreen/Profile';
 import EditProfile from '../screens/ProfileScreen/EditProfile';
+import ForgetOtp from '../screens/AuthScreens/ForgetOtp';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,14 +27,15 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="splashScreen"
+        initialRouteName="update-password"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="splashScreen" component={SplashScreen} />
         <Stack.Screen name="authScreen" component={AuthScreen} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="register" component={Register} />
+        <Stack.Screen name='Otp-screen' component={OtpScreen}/>
         <Stack.Screen name="forgot-password" component={ForgotPassword} />
-        <Stack.Screen name="Otp-screen" component={OtpScreen} />
+        <Stack.Screen name='forgetOtp' component={ForgetOtp}/>
         <Stack.Screen name="update-password" component={UpdatePassword} />
         <Stack.Screen name="home-screen" component={HomeScreen} />
         <Stack.Screen name="product-details" component={ProductDetails} />

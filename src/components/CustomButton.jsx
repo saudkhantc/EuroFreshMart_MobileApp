@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
 } from 'react-native';
+import { textcolor } from '../styles/CustomStyles';
 
 const {width,height} = Dimensions.get('window');
 
@@ -63,6 +64,8 @@ const styles = StyleSheet.create({
   text: {
     // marginLeft: width * 0.13,
     textAlign: 'center',
+    fontWeight:'700',
+    color:textcolor.color1
   },
   image: {
     width: 20,

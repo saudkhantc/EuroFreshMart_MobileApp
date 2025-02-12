@@ -10,7 +10,7 @@ import chilli from '../../assets/images/chilli.jpeg';
 import onion from '../../assets/images/onion.jpeg';
 import potatoes from '../../assets/images/potatoes.jpeg';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/cartSlice';
+import { selectUser } from '../../redux/userSlice';
 
 const {width, height} = Dimensions.get('window');
 

@@ -27,7 +27,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="update-password"
+        initialRouteName="home-screen"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="splashScreen" component={SplashScreen} />
         <Stack.Screen name="authScreen" component={AuthScreen} />

@@ -4,19 +4,12 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomHome_Header from '../../components/CustomHome_Header';
 import ImageSlider from '../../components/ImageSlider';
 import Categories from '../../components/Categories';
-import CustomCard from '../../components/CustomCard';
-import carrot from '../../assets/images/carrot.jpeg';
-import chilli from '../../assets/images/chilli.jpeg';
-import onion from '../../assets/images/onion.jpeg';
-import potatoes from '../../assets/images/potatoes.jpeg';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/userSlice';
+import ProductList from '../../components/Productlist';
 
 const {width, height} = Dimensions.get('window');
 
 const HomeScreen = () => {
-  const loggedUser = useSelector(selectUser)
-  console.log(loggedUser)
+  
   
   return (
     <SafeAreaView style={styles.container}>
@@ -36,53 +29,8 @@ const HomeScreen = () => {
             <Categories />
           </View>
 
-          <View style={styles.CardContent}>
-            <View style={styles.cardContainer}>
-              <CustomCard
-               id="carrot" 
-                imageSource={carrot}
-                productname="Fresh Carrot"
-                pricetext="€ 19,000"
-                unittxt="/Kg"
-                retailprice="€ 21,000"
-              />
-              <CustomCard
-               id="chilli"
-                imageSource={chilli}
-                productname="Fresh Carrot"
-                pricetext="€ 19,000"
-                unittxt="/Kg"
-                retailprice="€ 21,000"
-              />
-              <CustomCard
-                imageSource={onion}
-                productname="Fresh Carrot"
-                pricetext="€ 19,000"
-                unittxt="/Kg"
-                retailprice="€ 21,000"
-              />
-              <CustomCard
-                imageSource={potatoes}
-                productname="Fresh Carrot"
-                pricetext="€ 19,000"
-                unittxt="/Kg"
-                retailprice="€ 21,000"
-              />
-              <CustomCard
-                imageSource={potatoes}
-                productname="Fresh Carrot"
-                pricetext="€ 19,000"
-                unittxt="/Kg"
-                retailprice="€ 21,000"
-              />
-              <CustomCard
-                imageSource={potatoes}
-                productname="Fresh Carrot"
-                pricetext="€ 19,000"
-                unittxt="/Kg"
-                retailprice="€ 21,000"
-              />
-            </View>
+          <View >
+               <ProductList/>
           </View>
         </View>
       </ScrollView>
@@ -126,12 +74,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.02,
     marginBottom: height * 0.08
   },
-  cardContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    gap: 16,
-  },
+  
 });
 
 export default HomeScreen;

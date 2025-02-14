@@ -1,41 +1,44 @@
-import React from 'react';
-import {
-  Dimensions,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+// import React from 'react';
+import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import img1 from '../../assets/images/heart.png';
 import img2 from '../../assets/images/fruits.png';
 import { InterFont } from '../../styles/CustomStyles';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItemToCart } from '../../redux/cartSlice';
+import { removeFromWishlist } from '../../redux/wishlistSlice';
+
 
 const { width, height } = Dimensions.get('window');
 
 const WishlistScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const wishlistItems = useSelector(state => state.wishlist.items);  // Get wishlist items from Redux store
 
   const handleBackPress = () => {
     navigation.goBack();
   };
 
+  const handleAddToCart = (item) => {
+    dispatch(addItemToCart(item));  // Dispatch add to cart action
+  };
+
+  const handleRemoveFromWishlist = (id) => {
+    dispatch(removeFromWishlist(id));  
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.iconContainer}>
             <TouchableOpacity onPress={handleBackPress}>
               <AntDesign name="arrowleft" size={30} color="#fff" style={styles.icon} />
             </TouchableOpacity>
-
             <TouchableOpacity>
               <FontAwesome name="shopping-cart" size={30} color="#fff" style={styles.icon} />
             </TouchableOpacity>
@@ -48,38 +51,37 @@ const WishlistScreen = () => {
 
         <View style={styles.main}>
           <View style={styles.FavProdcut}>
-            <Text style={styles.FavText}>Favorite Products(4)</Text>
+            <Text style={styles.FavText}>Favorite Products ({wishlistItems.length})</Text>
           </View>
 
-          <View style={styles.productRow}>
-            <View style={styles.productInfoContainer}>
-              <View>
-                <Image source={img2} />
-              </View>
+          {wishlistItems.length > 0 ? (
+  wishlistItems.map(item => (
+    <View key={item.productId} style={styles.productRow}>
+      <View style={styles.productInfoContainer}>
+        <View>
+          <Image source={item.image } style={{ width: 110, height: 90 ,borderRadius:20}} />
+        </View>
 
-              <View>
-                <View>
-                  <Text style={styles.productName}>Carrot</Text>
-                  <Text style={styles.productWeight}>1KG</Text>
-                </View>
-
-                <View style={styles.iconRow}>
-                  <TouchableOpacity>
-                    <AntDesign name="eyeo" size={20} color="#292D32" />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <AntDesign name="heart" size={20} color="red" />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-
-            <View>
-              <TouchableOpacity>
-                <FontAwesome name="shopping-cart" size={30} color="#000" style={styles.icon} />
-              </TouchableOpacity>
-            </View>
+        <View>
+          <Text style={styles.productName}>{item.name}</Text>
+          <Text style={styles.productWeight}>{item.price}</Text>
+          <View style={styles.iconRow}>
+            <TouchableOpacity onPress={() => handleAddToCart(item)}>
+              <AntDesign name="shoppingcart" size={20} color="#292D32" />
+            </TouchableOpacity>
           </View>
+        </View>
+      </View>
+
+      <TouchableOpacity onPress={() => handleRemoveFromWishlist(item.id)}>
+        <FontAwesome name="trash" size={30} color="#EE0004" />
+      </TouchableOpacity>
+    </View>
+  ))
+) : (
+  <Text style={styles.emptyText}>Your wishlist is empty.</Text>
+)}
+
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -89,7 +91,7 @@ const WishlistScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -146,13 +148,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: InterFont.RegularFont,
     color: '#8B8B8B',
-    textAlign: 'center',
   },
   iconRow: {
     flexDirection: 'row',
     gap: 20,
     alignItems: 'center',
     marginTop: 15,
+  },
+  emptyText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#8B8B8B',
   },
 });
 

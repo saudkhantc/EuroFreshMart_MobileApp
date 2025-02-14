@@ -72,7 +72,7 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
         if (userRole === "admin") {
           navigation.navigate("Otp-screen"); 
         } else {
-          navigation.navigate("profile"); 
+          navigation.navigate("bottom-tabs"); 
         }
       }, 1000);
     } else {

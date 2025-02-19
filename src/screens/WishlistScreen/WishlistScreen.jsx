@@ -9,6 +9,7 @@ import { InterFont } from '../../styles/CustomStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from '../../redux/cartSlice';
 import { removeFromWishlist } from '../../redux/wishlistSlice';
+import CustomCartIcon from '../HomeScreens/CustomCartIcon';
 
 
 const { width, height } = Dimensions.get('window');
@@ -36,12 +37,7 @@ const WishlistScreen = () => {
       <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.iconContainer}>
-            <TouchableOpacity onPress={handleBackPress}>
-              <AntDesign name="arrowleft" size={30} color="#fff" style={styles.icon} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <FontAwesome name="shopping-cart" size={30} color="#fff" style={styles.icon} />
-            </TouchableOpacity>
+            <CustomCartIcon/>
           </View>
 
           <View style={styles.imageContainer}>
@@ -66,15 +62,15 @@ const WishlistScreen = () => {
           <Text style={styles.productName}>{item.name}</Text>
           <Text style={styles.productWeight}>{item.price}</Text>
           <View style={styles.iconRow}>
-            <TouchableOpacity onPress={() => handleAddToCart(item)}>
-              <AntDesign name="shoppingcart" size={20} color="#292D32" />
+            <TouchableOpacity onPress={() => handleRemoveFromWishlist(item.id)}>
+              <AntDesign name="heart" size={20} color="#EE0004" />
             </TouchableOpacity>
           </View>
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => handleRemoveFromWishlist(item.id)}>
-        <FontAwesome name="trash" size={30} color="#EE0004" />
+      <TouchableOpacity onPress={() => handleAddToCart(item)}>
+        <AntDesign name="shoppingcart" size={22} color="#292D32" />
       </TouchableOpacity>
     </View>
   ))
@@ -105,7 +101,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     top: height * 0.02,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     paddingHorizontal: 15,
   },
   Image: {

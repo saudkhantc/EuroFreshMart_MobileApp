@@ -8,28 +8,29 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import cart from '../../assets/images/cart.png';
 import mail from '../../assets/images/mail.png';
 import check from '../../assets/images/check.png';
-import onion from '../../assets/images/onion.jpeg';
-import {InterFont, textcolor} from '../../styles/CustomStyles';
+import { InterFont, textcolor } from '../../styles/CustomStyles';
 import CustomButton from '../../components/CustomButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItemFromCart } from '../../redux/cartSlice';
+import CustomCartIcon from './CustomCartIcon';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-const CartScreen = ({navigation}) => {
+const CartScreen = ({ navigation }) => {
   const [quantity, setQuantity] = useState(0);
-  
-  const cartItems = [
-    { id: 1, name: 'Carrot', quantity: '1 kg', image: onion ,Price:'$120'},
-    { id: 2, name: 'Onion', quantity: '2 kg', image: onion ,Price:'$50'},
-    { id: 3, name: 'Tomato', quantity: '500 gm', image: onion,Price:'$100' },
-    { id: 4, name: 'Potato', quantity: '3 kg', image: onion }
-  ];
+  const dispatch = useDispatch();
 
+  const cartItems = useSelector(state => state.cart.items);
+
+  const handleRemoveFromCart = (id) => {
+    dispatch(removeItemFromCart(id));
+
+  };
   const incrementQuantity = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
   };
@@ -49,12 +50,7 @@ const CartScreen = ({navigation}) => {
             style={styles.headerImage}
           >
             <View style={styles.iconContainer}>
-              <TouchableOpacity>
-                <Ionicons name="arrow-back" size={width * 0.09} color="white" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Ionicons name="cart-sharp" size={width * 0.09} color="white" />
-              </TouchableOpacity>
+              <CustomCartIcon/>
             </View>
           </ImageBackground>
         </View>
@@ -81,33 +77,38 @@ const CartScreen = ({navigation}) => {
           <Text style={styles.carttext}>Item <Text>( {cartItems.length} )</Text> </Text>
 
           {/* Cart item list */}
-          <ScrollView showsVerticalScrollIndicator={false} style={{height: height * 0.5}} nestedScrollEnabled={true}>
-            {cartItems.map(item => (
-              <View key={item.id} style={styles.row}>
-                <Image source={item.image} style={styles.imagecart} />
-                <View style={styles.textContainer}>
-                  <Text style={styles.productName}>{item.name}</Text>
-                  <View style={{flexDirection:'row',marginHorizontal:3}}>
-                    <Text style={styles.productQuantity}>{item.quantity}</Text>
-                  <Text style={{padding:1,marginLeft:9}}>{item.Price}</Text>
-                  </View>
-                  <View style={styles.quantityContainer}>
-                    <TouchableOpacity style={styles.quantityButton}>
-                      <Text style={styles.quantityButtonText} onPress={decrementQuantity}>-</Text>
-                    </TouchableOpacity>
-                    <View style={styles.quantityBox}>
-                      <Text style={styles.quantityText}>{quantity}</Text>
+          <ScrollView showsVerticalScrollIndicator={false} style={{ height: height * 0.5 }} nestedScrollEnabled={true}>
+            {cartItems.length > 0 ? (
+              cartItems.map(item => (
+                <View key={item.id} style={styles.row}>
+                  <Image source={item.image} style={styles.imagecart} />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.productName}>{item.name}</Text>
+                    <View style={{ flexDirection: 'row', marginHorizontal: 3 }}>
+                      <Text style={styles.productQuantity}>{item.quantity}</Text>
+                      <Text style={{ padding: 1, marginLeft: 9 }}>{item.Price}</Text>
                     </View>
-                    <TouchableOpacity style={styles.quantityButton}>
-                      <Text style={styles.quantityButtonText} onPress={incrementQuantity}>+</Text>
-                    </TouchableOpacity>
+                    <View style={styles.quantityContainer}>
+                      <TouchableOpacity style={styles.quantityButton}>
+                        <Text style={styles.quantityButtonText} onPress={decrementQuantity}>-</Text>
+                      </TouchableOpacity>
+                      <View style={styles.quantityBox}>
+                        <Text style={styles.quantityText}>{quantity}</Text>
+                      </View>
+                      <TouchableOpacity style={styles.quantityButton}>
+                        <Text style={styles.quantityButtonText} onPress={incrementQuantity}>+</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
+                  <TouchableOpacity onPress={() => handleRemoveFromCart(item.id)} style={styles.deleteIconContainer}>
+                    <AntDesign name="delete" size={25} color={textcolor.color2} />
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.deleteIconContainer}>
-                  <AntDesign name="delete" size={25} color={textcolor.color2} />
-                </TouchableOpacity>
-              </View>
-            ))}
+              ))
+            ) : (
+              <Text style={styles.emptyText}>Your wishlist is empty.</Text>
+            )}
+
           </ScrollView>
 
           <View style={styles.line2} />
@@ -132,20 +133,20 @@ const CartScreen = ({navigation}) => {
         </View>
 
         {/* Footer Section */}
-        
+
       </ScrollView>
       <View style={styles.footerContainer}>
-          <CustomButton
-            text={'Proceed to Checkout'}
-            width={width * 0.6}
-            onPress={() => navigation.navigate('checkout')}
-            paddingVertical={12}
-            textColor={textcolor.color4}
-            bgColor={textcolor.color3}
-            fontFamily={InterFont.SemiBoldFont}
-            fontSize={14}
-          />
-        </View>
+        <CustomButton
+          text={'Proceed to Checkout'}
+          width={width * 0.6}
+          onPress={() => navigation.navigate('checkout')}
+          paddingVertical={12}
+          textColor={textcolor.color4}
+          bgColor={textcolor.color3}
+          fontFamily={InterFont.SemiBoldFont}
+          fontSize={14}
+        />
+      </View>
     </View>
   );
 };
@@ -171,9 +172,18 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     padding: width * 0.05,
+  },
+  badge: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
+    backgroundColor: 'red',
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   body: {
     flex: 1,
@@ -273,8 +283,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   deleteIconContainer: {
-    alignSelf:'flex-end',
-    marginBottom:15
+    alignSelf: 'flex-end',
+    marginBottom: 15
   },
   deleteIcon: {
     fontSize: width * 0.08,
@@ -328,5 +338,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20
+  },
+  emptyText: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#8B8B8B',
   },
 });

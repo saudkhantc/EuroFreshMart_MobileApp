@@ -1,21 +1,44 @@
-import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { useEffect } from "react";
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+
+import { fetchCategories } from "../../redux/categorySlice";
 import CustomSearchInput from '../../components/Custom_SearchInput';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
+import CustomCartIcon from './CustomCartIcon';
 
 const { width, height } = Dimensions.get('window');
 
-const categories = [
-  { id: 1, name: 'Apple', image: require('../../assets/images/sliderImage.png') },
-  { id: 2, name: 'Carrot', image: require('../../assets/images/onion.jpeg') },
-  { id: 3, name: 'Banana', image: require('../../assets/images/onion.jpeg') },
-  { id: 4, name: 'Tomato', image: require('../../assets/images/carrot.jpeg') },
-  { id: 5, name: 'Potato', image: require('../../assets/images/carrot.jpeg') },
-  { id: 6, name: 'Grapes', image: require('../../assets/images/carrot.jpeg') },
-];
-
 const CategoryScreen = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const { items: categories, loading, error } = useSelector(
+    (state) => state.categories
+  );
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#ACE03A" />;
+  }
+
+  if (error) {
+    return <Text style={{ color: "red", textAlign: "center" }}>Error: {error}</Text>;
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollview}>
@@ -25,17 +48,10 @@ const CategoryScreen = () => {
             style={styles.headerImage}
           >
             <View style={styles.iconContainer}>
-              <TouchableOpacity>
-                <Ionicons name="arrow-back" size={width * 0.07} color="white" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Ionicons name="cart-sharp" size={width * 0.07} color="white" />
-              </TouchableOpacity>
+              <CustomCartIcon />
             </View>
             <View style={styles.searchInputContainer}>
-              <CustomSearchInput
-                placeholder={"Search for Fruit, Groce ..."}
-              />
+              <CustomSearchInput placeholder={"Search for Fruit, Groce ..."} />
             </View>
           </ImageBackground>
         </View>
@@ -44,15 +60,14 @@ const CategoryScreen = () => {
           <Text style={styles.categorytitle}>Category</Text>
 
           <View style={styles.categoriesContainer}>
-            {categories.map((category) => (
-              <TouchableOpacity key={category.id} style={styles.categoryCard}>
-                <Image source={category.image} style={styles.categoryImage} />
-                <Text style={styles.categoryName}>{category.name}</Text>
+            {categories.map((item) => (
+              <TouchableOpacity key={item._id} style={styles.categoryCard}>
+                <Image source={{ uri: item.image }} style={styles.categoryImage} />
+                <Text style={styles.categoryName}>{item.name}</Text>
               </TouchableOpacity>
             ))}
           </View>
         </View>
-
       </ScrollView>
     </View>
   );
@@ -78,15 +93,13 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   iconContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start', 
-    padding: width * 0.05, 
+    flexDirection: 'row', 
+    padding: width * 0.04, 
   },
   searchInputContainer: {
     alignSelf: 'center',
     width: width * 0.8, 
-    marginTop:10
+    marginTop: 10
   },
   body: {
     marginHorizontal: 18,
@@ -100,8 +113,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginTop:10 ,
-    marginBottom:height*0.08
+    marginTop: 10,
+    marginBottom: height * 0.08
   },
   categoryCard: {
     width: width * 0.4,
@@ -109,19 +122,118 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 10,
     borderRadius: 10,
-     overflow: 'hidden',
-     elevation: 2, 
+    overflow: 'hidden',
+    elevation: 2, 
   },
   categoryImage: {
-    width: '100%',
-    height: '80%',
-    resizeMode: 'cover',
+    width: '70%',
+    height: '50%',
+    resizeMode: 'contain',
+    alignSelf:'center',
+    marginTop:8
   },
   categoryName: {
     fontSize: 16,
     textAlign: 'center',
-    marginTop: 8,
+    marginTop: 14,
     color: textcolor.color1,
     fontFamily: InterFont.SemiBoldFont,
   },
 });
+
+
+
+// import React, { useEffect } from "react";
+// import {
+//   View,
+//   FlatList,
+//   Image,
+//   Text,
+//   StyleSheet,
+//   ActivityIndicator,
+//   TouchableOpacity,
+// } from "react-native";
+// import { useDispatch, useSelector } from "react-redux";
+
+// import { useNavigation } from "@react-navigation/native";
+// import { fetchCategories } from "../../redux/categorySlice";
+
+// const CategoryScreen = () => {
+//   const dispatch = useDispatch();
+//   const navigation = useNavigation();
+//   const { items: categories, loading, error } = useSelector(
+//     (state) => state.categories
+//   );
+
+//   useEffect(() => {
+//     dispatch(fetchCategories());
+//   }, [dispatch]);
+
+//   const renderItem = ({ item }) => (
+//     <View style={styles.item}>
+//       <Image source={{ uri: item.image }} style={styles.image} />
+//       <Text style={styles.text}>{item.name}</Text>
+//     </View>
+//   );
+
+//   if (loading) {
+//     return <ActivityIndicator size="large" color="#ACE03A" />;
+//   }
+
+//   if (error) {
+//     return <Text style={{ color: "red", textAlign: "center" }}>Error: {error}</Text>;
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+//         <Text style={styles.backText}>← Back</Text>
+//       </TouchableOpacity>
+//       <FlatList
+//         data={categories}
+//         renderItem={renderItem}
+//         keyExtractor={(item) => item._id}
+//         numColumns={2} // Display in grid format
+//         contentContainerStyle={{ paddingBottom: 20 }}
+//       />
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 10,
+//   },
+//   backButton: {
+//     padding: 10,
+//     backgroundColor: "#ACE03A",
+//     alignSelf: "flex-start",
+//     borderRadius: 5,
+//     marginBottom: 10,
+//   },
+//   backText: {
+//     fontSize: 16,
+//     color: "#fff",
+//   },
+//   item: {
+//     flex: 1,
+//     alignItems: "center",
+//     margin: 8,
+//     backgroundColor: "#EEF9D8",
+//     padding: 10,
+//     borderRadius: 10,
+//   },
+//   image: {
+//     width: 100,
+//     height: 100,
+//     borderRadius: 10,
+//   },
+//   text: {
+//     marginTop: 5,
+//     textAlign: "center",
+//     fontWeight: "bold",
+//   },
+// });
+
+// export default CategoryScreen;

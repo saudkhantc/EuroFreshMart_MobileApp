@@ -79,7 +79,9 @@ const Register = () => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 40 : 0}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-          <AuthHeader image={img1} />
+         <View>
+           <AuthHeader image={img1} />
+         </View>
           <View style={styles.main}>
             <Text style={styles.heading}>Register</Text>
             <Controller
@@ -155,13 +157,14 @@ const styles = StyleSheet.create({
     flexGrow: 1
    },
   main: { 
-    paddingHorizontal: width * 0.1, 
-    paddingVertical: height * 0.02 
+    paddingHorizontal: width * 0.1,
+    paddingVertical: height * 0.03, 
+    
   },
   heading: { 
     fontSize: width * 0.07, 
     fontWeight: "bold", 
-    color: "#004D00" 
+    color: "#333" 
   },
   Button: { 
     alignItems: "center", 

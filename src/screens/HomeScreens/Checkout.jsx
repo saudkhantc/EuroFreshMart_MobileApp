@@ -7,6 +7,7 @@ import mail from '../../assets/images/mail.png';
 import check from '../../assets/images/check.png';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
 import CustomButton from '../../components/CustomButton';
+import CustomCartIcon from './CustomCartIcon';
 
 const { width, height } = Dimensions.get('window');
 
@@ -38,12 +39,7 @@ const Checkout = ({navigation}) => {
             style={styles.headerImage}
           >
             <View style={styles.iconContainer}>
-              <TouchableOpacity>
-                <Ionicons name="arrow-back" size={width * 0.09} color="white" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Ionicons name="cart-sharp" size={width * 0.09} color="white" />
-              </TouchableOpacity>
+            <CustomCartIcon/>
             </View>
           </ImageBackground>
         </View>
@@ -141,8 +137,6 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     padding: width * 0.05,
   },
   body: {

@@ -2,13 +2,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import API, { ENDPOINTS } from "../screens/API/apiService";
 
-// Async thunk to fetch categories
 export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
   async (_, { rejectWithValue }) => {
     try {
       const response = await API.get(ENDPOINTS.GET_CATEGORIES);
-      console.log('responsive',response)
+  //    console.log('responsive',response)
       return response?.categories || []; 
     } catch (error) {
       return rejectWithValue(error.response ? error.response.data : error.message);

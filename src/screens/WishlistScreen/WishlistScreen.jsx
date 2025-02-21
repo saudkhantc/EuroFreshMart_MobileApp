@@ -7,9 +7,11 @@ import img1 from '../../assets/images/heart.png';
 import img2 from '../../assets/images/fruits.png';
 import { InterFont } from '../../styles/CustomStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemToCart } from '../../redux/cartSlice';
+
 import { removeFromWishlist } from '../../redux/wishlistSlice';
 import CustomCartIcon from '../HomeScreens/CustomCartIcon';
+import { useState } from 'react';
+import { addItemToCart } from '../../redux/cartSlice';
 
 
 const { width, height } = Dimensions.get('window');
@@ -17,15 +19,20 @@ const { width, height } = Dimensions.get('window');
 const WishlistScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+  const [count, setCount] = useState(1);
   const wishlistItems = useSelector(state => state.wishlist.items);  // Get wishlist items from Redux store
 
   const handleBackPress = () => {
     navigation.goBack();
   };
 
-  const handleAddToCart = (item) => {
-    dispatch(addItemToCart(item));  // Dispatch add to cart action
+  // const handleAddToCart = (item) => {
+  //   dispatch(addItemToCart(item));  
+  // };
+  const handleAddToCart = (product) => {
+    dispatch(
+      addItemToCart({ ...product, quantity: count, stock: product.quantity })
+    );
   };
 
   const handleRemoveFromWishlist = (id) => {
@@ -55,14 +62,14 @@ const WishlistScreen = () => {
     <View key={item.productId} style={styles.productRow}>
       <View style={styles.productInfoContainer}>
         <View>
-          <Image source={item.image } style={{ width: 110, height: 90 ,borderRadius:20}} />
+          <Image source={{uri: item.imageUrl} } style={{ width: 100, height: 70 ,borderRadius:20,resizeMode:'contain'}} />
         </View>
 
         <View>
           <Text style={styles.productName}>{item.name}</Text>
           <Text style={styles.productWeight}>{item.price}</Text>
           <View style={styles.iconRow}>
-            <TouchableOpacity onPress={() => handleRemoveFromWishlist(item.id)}>
+            <TouchableOpacity onPress={() => handleRemoveFromWishlist(item._id)}>
               <AntDesign name="heart" size={20} color="#EE0004" />
             </TouchableOpacity>
           </View>

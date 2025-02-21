@@ -20,7 +20,6 @@ import OrderDone from '../screens/HomeScreens/OrderDone';
 import Profile from '../screens/ProfileScreen/Profile';
 import EditProfile from '../screens/ProfileScreen/EditProfile';
 import ForgetOtp from '../screens/AuthScreens/ForgetOtp';
-
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
@@ -38,7 +37,7 @@ const AppNavigation = () => {
         <Stack.Screen name='forgetOtp' component={ForgetOtp}/>
         <Stack.Screen name="update-password" component={UpdatePassword} />
         <Stack.Screen name="home-screen" component={HomeScreen} />
-        <Stack.Screen name="product-details" component={ProductDetails} />
+        <Stack.Screen name="product-details/:id" component={ProductDetails} />
         <Stack.Screen name="bottom-tabs" component={BottomTabs} />
         <Stack.Screen name="category-screen" component={CategoryScreen} />
         <Stack.Screen name="cart-screen" component={CartScreen} />

@@ -110,7 +110,8 @@
 // export default Categories;
 
 // src/components/Categories.js
-import React, { useEffect } from "react";
+// 
+import React, { useEffect, useState } from "react";
 import {
   View,
   Image,
@@ -123,29 +124,36 @@ import {
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { InterFont, textcolor } from "../styles/CustomStyles";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../redux/categorySlice";
+import CustomCard from "./Productlist";
 
 const { width, height } = Dimensions.get("window");
 
 const Categories = () => {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
   const { items: categories, loading, error } = useSelector(
     (state) => state.categories
   );
+  
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
+  const handleCategoryClick = (category) => {     // use for data navigate
+    setSelectedCategory(category); 
+  };
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.main}>
+    <TouchableOpacity onPress={() => handleCategoryClick(item)} style={styles.main}>
       <View style={styles.box}>
         <Image source={{ uri: item.image }} style={styles.image} />
       </View>
-      <Text style={styles.text}>{item.name}</Text>
+      <Text style={styles.text}>
+        {item.name.length > 18 ? item.name.slice(0, 18) + ".." : item.name}
+      </Text>
     </TouchableOpacity>
   );
 
@@ -163,37 +171,13 @@ const Categories = () => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <Text style={{ fontSize: 18, fontFamily: InterFont.SemiBoldFont }}>
-          Categories
-        </Text>
-        <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("category-screen")}
-          >
-            <Text
-              style={{
-                fontSize: 14,
-                fontFamily: InterFont.SemiBoldFont,
-                color: textcolor.color3,
-              }}
-            >
-              See more
-            </Text>
-          </TouchableOpacity>
+      <View style={styles.header}>
+        <Text style={styles.title}>Categories</Text>
+        <View style={styles.seeMoreContainer}>
           <TouchableOpacity>
-            <MaterialCommunityIcons
-              name="greater-than"
-              size={16}
-              color={textcolor.color3}
-            />
+            <Text style={styles.seeMoreText}>See more</Text>
           </TouchableOpacity>
+          <MaterialCommunityIcons name="greater-than" size={16} color={textcolor.color3} />
         </View>
       </View>
 
@@ -205,6 +189,13 @@ const Categories = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ marginTop: 8 }}
       />
+
+      {/* Show CustomCard only when a category is selected */}
+      {selectedCategory && (
+        <View style={{marginVertical:14,marginBottom:height*0.08}}>
+          <CustomCard category={selectedCategory} />
+        </View>
+      )}
     </View>
   );
 };
@@ -212,6 +203,25 @@ const Categories = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  header: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: InterFont.SemiBoldFont,
+  },
+  seeMoreContainer: {
+    flexDirection: "row",
+    gap: 4,
+    alignItems: "center",
+  },
+  seeMoreText: {
+    fontSize: 14,
+    fontFamily: InterFont.SemiBoldFont,
+    color: textcolor.color3,
   },
   main: {
     alignItems: "center",

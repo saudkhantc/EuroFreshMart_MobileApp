@@ -81,7 +81,7 @@ const CartScreen = ({ navigation }) => {
             {cartItems.length > 0 ? (
               cartItems.map(item => (
                 <View key={item.id} style={styles.row}>
-                  <Image source={item.image} style={styles.imagecart} />
+                  <Image source={{uri:item.imageUrl}} style={styles.imagecart} />
                   <View style={styles.textContainer}>
                     <Text style={styles.productName}>{item.name}</Text>
                     <View style={{ flexDirection: 'row', marginHorizontal: 3 }}>

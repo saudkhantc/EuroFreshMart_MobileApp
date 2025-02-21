@@ -4,7 +4,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomHome_Header from '../../components/CustomHome_Header';
 import ImageSlider from '../../components/ImageSlider';
 import Categories from '../../components/Categories';
-import ProductList from '../../components/Productlist';
 
 const {width, height} = Dimensions.get('window');
 
@@ -30,7 +29,8 @@ const HomeScreen = () => {
           </View>
 
           <View >
-               <ProductList/>
+              
+               
           </View>
         </View>
       </ScrollView>

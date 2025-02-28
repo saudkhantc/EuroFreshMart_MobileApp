@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ENDPOINTS } from '../screens/API/apiRoutes';
+import { baseUrl } from '../screens/API/apiConstants';
 import API from '../screens/API/apiService';
 
 // Async thunk to fetch banners by type
@@ -7,7 +8,8 @@ export const fetchBannersByType = createAsyncThunk(
   'banners/fetchBannersByType',
   async (bannerType, { rejectWithValue }) => {
     try {
-      const response = await API.get(`${ENDPOINTS.GET_BANNERBYTYPE}/${bannerType}`);
+      //console.log(`${baseUrl}${ENDPOINTS.GET_BANNERBYTYPE}/${bannerType}`)
+      const response = await API.get(`${baseUrl}/${ENDPOINTS.GET_BANNERBYTYPE}/${bannerType}`);
       return { bannerType, banners: response.banners };  // Ensure to use .data to access response payload
     } catch (error) {
       return rejectWithValue(error.response ? error.response.data : error.message);

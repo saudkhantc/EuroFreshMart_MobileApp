@@ -59,14 +59,14 @@ const WishlistScreen = () => {
 
           {wishlistItems.length > 0 ? (
   wishlistItems.map(item => (
-    <View key={item.productId} style={styles.productRow}>
+    <View key={item._id} style={styles.productRow}>
       <View style={styles.productInfoContainer}>
         <View>
-          <Image source={{uri: item.imageUrl} } style={{ width: 100, height: 70 ,borderRadius:20,resizeMode:'contain'}} />
+          <Image source={{uri: item.imageUrl} } style={styles.imagecart} />
         </View>
 
         <View>
-          <Text style={styles.productName}>{item.name}</Text>
+          <Text style={styles.productName} numberOfLines={2}  ellipsizeMode="tail">{item.name}</Text>
           <Text style={styles.productWeight}>{item.price}</Text>
           <View style={styles.iconRow}>
             <TouchableOpacity onPress={() => handleRemoveFromWishlist(item._id)}>
@@ -76,7 +76,7 @@ const WishlistScreen = () => {
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => handleAddToCart(item)}>
+      <TouchableOpacity onPress={() => handleAddToCart(item)} style={{marginBottom:10,marginRight:10,alignSelf:'flex-end'}}>
         <AntDesign name="shoppingcart" size={22} color="#292D32" />
       </TouchableOpacity>
     </View>
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
   main: {
     paddingHorizontal: 20,
     paddingVertical: 20,
+    marginBottom:height*0.05
   },
   FavProdcut: {
     paddingBottom: 10,
@@ -137,14 +138,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: 20,
+    overflow:'hidden',
+    //width:'100%',
+    height:height*0.17,
+    backgroundColor:'white',
+    //shadowColor: '#000',
+    //shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    borderRadius:10,
   },
   productInfoContainer: {
     flexDirection: 'row',
     gap: 15,
+    flex:1,
+    //width:'75%'
+  },
+  imagecart: {
+    width: width * 0.3,
+    height: width * 0.25,
+    resizeMode: 'contain',
+    borderRadius: 10,
   },
   productName: {
-    fontSize: 18,
+    fontSize: 17,
     fontFamily: InterFont.RegularFont,
+    flexShrink:1,
+    width:width*0.50
   },
   productWeight: {
     fontSize: 14,

@@ -9,38 +9,84 @@ import {
   View,
 } from 'react-native';
 import React, { useState } from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import cart from '../../assets/images/cart.png';
 import mail from '../../assets/images/mail.png';
 import check from '../../assets/images/check.png';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
 import CustomButton from '../../components/CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeItemFromCart } from '../../redux/cartSlice';
+import {  removeItemFromCart, updateQuantity } from '../../redux/cartSlice';
 import CustomCartIcon from './CustomCartIcon';
 
 const { width, height } = Dimensions.get('window');
 
 const CartScreen = ({ navigation }) => {
-  const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
-
   const cartItems = useSelector(state => state.cart.items);
+  const [maxQuantityMessages, setMaxQuantityMessages] = useState({});  ///   inre 1//
+  const [discountPrice, setDiscountPrice] = useState(null);         // use for summary 2
+  const [couponCodeData, setCouponCodeData] = useState(null);       //2
 
-  const handleRemoveFromCart = (id) => {
-    dispatch(removeItemFromCart(id));
-
-  };
-  const incrementQuantity = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
-  };
-
-  const decrementQuantity = () => {
-    if (quantity > 0) {
-      setQuantity(prevQuantity => prevQuantity - 1);
+  const handleIncrement = (productId) => {
+    const existingItem = cartItems.find(item => item._id === productId);
+    if (existingItem) {
+      if (existingItem.quantity < 100) {
+        dispatch(updateQuantity({ productId, quantity: existingItem.quantity + 1 }));
+        setMaxQuantityMessages(prevMessages => ({
+          ...prevMessages,
+          [productId]: null,
+        }));
+      } else {
+        setMaxQuantityMessages(prevMessages => ({
+          ...prevMessages,
+          [productId]: "Maximum quantity of 100 reached",
+        }));
+      }
     }
   };
 
+  // Decrement Quantity
+  const handleDecrement = (productId) => {
+    const existingItem = cartItems.find(item => item._id === productId);
+    if (existingItem && existingItem.quantity > 1) {
+      dispatch(updateQuantity({ productId, quantity: existingItem.quantity - 1 }));
+    }
+  };
+  
+  const handleRemoveFromCart = (productId) => {
+    dispatch(removeItemFromCart(productId));
+    setMaxQuantityMessages((prevMessages) => ({
+      ...prevMessages,
+      [productId]: null,
+    }));
+  };
+  const subTotal = (cartItems || []).reduce((acc, item) => {       /////  2
+    const price = parseFloat(item.price) || 0;
+    const quantity = parseInt(item.quantity, 10) || 0;
+    return acc + price * quantity;
+  }, 0);
+  
+  const deliveryCharges = subTotal * 0; 
+  const otherCharges = 0;
+  const discountPercentage = couponCodeData ? discountPrice : 0; 
+  
+  const total = (subTotal + deliveryCharges - discountPercentage).toFixed(2);     //2
+  
+  // const discountPercentenge = couponCodeData ? discountPrice : "";
+  
+  // const total = couponCodeData
+  //   ? (subTotal + deliveryCharges - discountPercentenge).toFixed(2)
+  //   : (subTotal + deliveryCharges).toFixed(2);
+
+  // const subTotal = (cartItems || []).reduce((acc, item) => {
+  //   const price = parseFloat(item.price) || 0;
+  //   const quantity = parseInt(item.quantity, 10) || 0;
+  //   return acc + price * quantity;
+  // }, 0);
+
+  // const deliveryCharges = subTotal * 0;
+  // const otherCharges = 0;
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollview}>
@@ -80,28 +126,28 @@ const CartScreen = ({ navigation }) => {
           <ScrollView showsVerticalScrollIndicator={false} style={{ height: height * 0.5 }} nestedScrollEnabled={true}>
             {cartItems.length > 0 ? (
               cartItems.map(item => (
-                <View key={item.id} style={styles.row}>
+                <View key={item._id} style={styles.row}>
                   <Image source={{uri:item.imageUrl}} style={styles.imagecart} />
                   <View style={styles.textContainer}>
-                    <Text style={styles.productName}>{item.name}</Text>
+                    <Text style={styles.productName} numberOfLines={2} >{item.name}</Text>
                     <View style={{ flexDirection: 'row', marginHorizontal: 3 }}>
-                      <Text style={styles.productQuantity}>{item.quantity}</Text>
-                      <Text style={{ padding: 1, marginLeft: 9 }}>{item.Price}</Text>
+                      <Text style={styles.productQuantity}>{item.price}</Text>
+                      <Text style={{ padding: 1, marginLeft: 9 }}>1Kg</Text>
                     </View>
                     <View style={styles.quantityContainer}>
-                      <TouchableOpacity style={styles.quantityButton}>
-                        <Text style={styles.quantityButtonText} onPress={decrementQuantity}>-</Text>
+                      <TouchableOpacity style={styles.quantityButton} onPress={() => handleDecrement(item._id)}>
+                        <Text style={styles.quantityButtonText} >-</Text>
                       </TouchableOpacity>
                       <View style={styles.quantityBox}>
-                        <Text style={styles.quantityText}>{quantity}</Text>
+                        <Text style={styles.quantityText}>{item.quantity}</Text>
                       </View>
-                      <TouchableOpacity style={styles.quantityButton}>
-                        <Text style={styles.quantityButtonText} onPress={incrementQuantity}>+</Text>
+                      <TouchableOpacity style={styles.quantityButton} onPress={() => handleIncrement(item._id)}>
+                        <Text style={styles.quantityButtonText}>+</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
-                  <TouchableOpacity onPress={() => handleRemoveFromCart(item.id)} style={styles.deleteIconContainer}>
-                    <AntDesign name="delete" size={25} color={textcolor.color2} />
+                  <TouchableOpacity onPress={() => handleRemoveFromCart(item._id)} style={styles.deleteIconContainer}>
+                  <Ionicons name="trash-outline" size={26} color="#EE0004" />
                   </TouchableOpacity>
                 </View>
               ))
@@ -110,24 +156,30 @@ const CartScreen = ({ navigation }) => {
             )}
 
           </ScrollView>
-
+                  {/* Summary */}
           <View style={styles.line2} />
           <View style={styles.summaryContainer}>
             <View style={styles.summaryRow}>
               <Text style={styles.summaryText}>Subtotal</Text>
-              <Text style={styles.summaryAmount}>$ 130</Text>
+              <Text style={styles.summaryAmount}>€{subTotal}</Text>
             </View>
             <View style={styles.summaryRow}>
               <Text style={styles.summaryText}>Tax</Text>
-              <Text style={styles.summaryAmount}>$ 130</Text>
+              <Text style={styles.summaryAmount}>€{deliveryCharges.toFixed(2)}</Text>
             </View>
             <View style={styles.summaryRow}>
-              <Text style={styles.summaryText}>Discount</Text>
-              <Text style={styles.summaryAmount}>$ 130</Text>
+              <Text style={styles.summaryText}>Other Charge</Text>
+              <Text style={styles.summaryAmount}>€{otherCharges.toFixed(2)}</Text>
             </View>
+            <View style={styles.summaryRow}>
+                          <Text style={styles.summaryText}>Discount</Text>
+                          <Text style={styles.summaryAmount}> -{" "}
+                  {discountPercentage}
+                    </Text>
+                        </View>
             <View style={[styles.summaryRow, styles.totalRow]}>
               <Text style={[styles.summaryText, styles.totalText]}>Total</Text>
-              <Text style={[styles.summaryAmount, styles.totalText]}>$ 130</Text>
+              <Text style={[styles.summaryAmount, styles.totalText]}>€ {total}</Text>
             </View>
           </View>
         </View>
@@ -139,7 +191,7 @@ const CartScreen = ({ navigation }) => {
         <CustomButton
           text={'Proceed to Checkout'}
           width={width * 0.6}
-          onPress={() => navigation.navigate('checkout')}
+          onPress={() => navigation.navigate('checkout',{cartItems: cartItems, total: total,deliveryCharges:deliveryCharges,otherCharges:otherCharges })}
           paddingVertical={12}
           textColor={textcolor.color4}
           bgColor={textcolor.color3}
@@ -240,11 +292,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: width * 0.02,
+    overflow:'hidden',
+    //width:'100%',
+    height:height*0.2,
+    backgroundColor:'white',
+    //shadowColor: '#000',
+    //shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    borderRadius:10,
   },
   imagecart: {
     width: width * 0.3,
     height: width * 0.25,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     borderRadius: 10,
   },
   textContainer: {
@@ -253,9 +315,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   productName: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 17,
+  //  fontWeight: 'bold',
     marginTop: 6,
+    flexShrink:1,
+    width:width*0.50
   },
   productQuantity: {
     fontSize: width * 0.04,
@@ -284,7 +348,8 @@ const styles = StyleSheet.create({
   },
   deleteIconContainer: {
     alignSelf: 'flex-end',
-    marginBottom: 15
+    marginBottom: 15,
+    marginRight:5
   },
   deleteIcon: {
     fontSize: width * 0.08,

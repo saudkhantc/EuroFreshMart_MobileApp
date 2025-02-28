@@ -12,8 +12,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-
-import { fetchCategories } from "../../redux/categorySlice";
+import { fetchCategories, setSelectedCategory } from "../../redux/categorySlice";       // 2
 import CustomSearchInput from '../../components/Custom_SearchInput';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
 import CustomCartIcon from './CustomCartIcon';
@@ -26,7 +25,7 @@ const CategoryScreen = () => {
   const { items: categories, loading, error } = useSelector(
     (state) => state.categories
   );
-
+  
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -38,7 +37,10 @@ const CategoryScreen = () => {
   if (error) {
     return <Text style={{ color: "red", textAlign: "center" }}>Error: {error}</Text>;
   }
-
+  const handleCategoryClick = (category) => {                      // show category in category sec 2
+    dispatch(setSelectedCategory(category)); // Update Redux state
+    navigation.navigate("homepage"); // Navigate back to Home
+  }
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollview}>
@@ -61,7 +63,7 @@ const CategoryScreen = () => {
 
           <View style={styles.categoriesContainer}>
             {categories.map((item) => (
-              <TouchableOpacity key={item._id} style={styles.categoryCard}>
+              <TouchableOpacity key={item._id} style={styles.categoryCard} onPress={()=>handleCategoryClick(item)}>
                 <Image source={{ uri: item.image }} style={styles.categoryImage} />
                 <Text style={styles.categoryName}>{item.name}</Text>
               </TouchableOpacity>

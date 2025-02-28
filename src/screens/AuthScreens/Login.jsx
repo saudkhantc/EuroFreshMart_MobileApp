@@ -80,7 +80,7 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
     }
   } catch (err) {
     console.error("Provide valid email and password. Please try again.");
-      console.error(err);
+      console.error(err.message);
   } finally {
     setSubmitting(false);
   }

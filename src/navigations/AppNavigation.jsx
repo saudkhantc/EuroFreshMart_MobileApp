@@ -20,13 +20,15 @@ import OrderDone from '../screens/HomeScreens/OrderDone';
 import Profile from '../screens/ProfileScreen/Profile';
 import EditProfile from '../screens/ProfileScreen/EditProfile';
 import ForgetOtp from '../screens/AuthScreens/ForgetOtp';
+import CustomCard from '../components/Productlist';
+import OrderDetails from '../screens/ProfileScreen/OrderDetails';
 const Stack = createNativeStackNavigator();
 
 const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="bottom-tabs"
+        initialRouteName="profile"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="splashScreen" component={SplashScreen} />
         <Stack.Screen name="authScreen" component={AuthScreen} />
@@ -45,8 +47,10 @@ const AppNavigation = () => {
         <Stack.Screen name="setting-screen" component={SettingScreen} />
         <Stack.Screen name="checkout" component={Checkout} />
         <Stack.Screen name="orderDone" component={OrderDone} />
+        <Stack.Screen name='orderDetails' component={OrderDetails}/>
         <Stack.Screen name='profile' component={Profile}/>
         <Stack.Screen name="editprofile" component={EditProfile}/>
+        <Stack.Screen name="product" component={CustomCard}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

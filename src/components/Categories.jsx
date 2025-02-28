@@ -111,7 +111,7 @@
 
 // src/components/Categories.js
 // 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Image,
@@ -125,7 +125,7 @@ import {
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { InterFont, textcolor } from "../styles/CustomStyles";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../redux/categorySlice";
+import { fetchCategories, setSelectedCategory } from "../redux/categorySlice";
 import CustomCard from "./Productlist";
 
 const { width, height } = Dimensions.get("window");
@@ -135,23 +135,38 @@ const Categories = () => {
   const { items: categories, loading, error } = useSelector(
     (state) => state.categories
   );
-  
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const flatListRef = useRef(null); //  Create a ref for FlatList  / 3 show a selected category in flatlist form C.S
+  const { selectedCategory } = useSelector((state) => state.categories);        // use for category select 2
+const handleCategoryClick = (category) => {                       // 2
+  dispatch(setSelectedCategory(category)); // Update globally
+};
 
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
-
-  const handleCategoryClick = (category) => {     // use for data navigate
-    setSelectedCategory(category); 
-  };
+  useEffect(() => {
+    if (categories.length > 0  && !selectedCategory) {      // && s.c  ///3
+      dispatch(setSelectedCategory(categories[0])); //  Set first category as defaul
+    }
+  }, [categories,setSelectedCategory,dispatch]);
+                                                  // 3 . Scroll to selected category
+ useEffect(() => {
+  if (selectedCategory && flatListRef.current) {
+    const selectedIndex = categories.findIndex((item) => item._id === selectedCategory._id);
+    if (selectedIndex !== -1) {
+      flatListRef.current.scrollToIndex({ index: selectedIndex, animated: true });
+    }
+  }
+}, [selectedCategory]);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleCategoryClick(item)} style={styles.main}>
       <View style={styles.box}>
         <Image source={{ uri: item.image }} style={styles.image} />
       </View>
-      <Text style={styles.text}>
+      <Text style={{
+          color: item === selectedCategory ? '#ACE03A' : textcolor.color1, 
+        }}>
         {item.name.length > 18 ? item.name.slice(0, 18) + ".." : item.name}
       </Text>
     </TouchableOpacity>
@@ -182,6 +197,7 @@ const Categories = () => {
       </View>
 
       <FlatList
+        ref={flatListRef}              // 3
         data={categories}
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
@@ -228,7 +244,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
   },
   box: {
-    backgroundColor: "#EEF9D8",
+   // backgroundColor: "red",
     width: width * 0.15,
     height: height * 0.08,
     alignItems: "center",
@@ -238,7 +254,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover",
+    resizeMode: 'contain',
     borderRadius: 10,
   },
   text: {

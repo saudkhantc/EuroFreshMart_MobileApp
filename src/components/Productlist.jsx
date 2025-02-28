@@ -70,7 +70,7 @@ const CustomCard = ({ category }) => {
   };
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator} />;
+    return <ActivityIndicator size="large" color="#ACE03A" style={styles.loadingIndicator} />;
   }
 
   if (error) {

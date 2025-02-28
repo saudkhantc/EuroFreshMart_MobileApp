@@ -17,6 +17,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
 import CustomButton from '../../components/CustomButton';
 import API from '../API/apiService';
+import { useDispatch } from 'react-redux';
+import { addItemToCart, updateQuantity } from '../../redux/cartSlice';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,8 +28,10 @@ const ProductDetails = () => {
   const {id} = route.params;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [quantity, setQuantity] = useState(0);
-  
+  const [count, setCount] = useState(1);                // incre/dec 1
+  const [maxReached, setMaxReached] = useState(false);    // 1
+   const dispatch=useDispatch();                      /// 1
+
   const fetchProductDetails = async () => {
     try {
       const response = await API.get(`/inventory/${id}`);
@@ -45,7 +49,7 @@ useEffect(() => {
   
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <ActivityIndicator size="large" color="#ACE03A" />;
   }
 
   if (!product) {
@@ -57,16 +61,38 @@ useEffect(() => {
         navigation.goBack();
       };
  
-  
-  const incrementQuantity = () => {
-    setQuantity(prevQuantity => prevQuantity + 1);
-  };
 
-  const decrementQuantity = () => {
-    if (quantity > 0) {
-      setQuantity(prevQuantity => prevQuantity - 1);
-    }
-  };
+      const handleIncrement = () => {                    ///1
+        if (count < 100) {
+          setCount(prevCount => prevCount + 1);
+          setMaxReached(false);
+          dispatch(updateQuantity({ productId: id, quantity: count + 1 }));
+        } else {
+          setMaxReached(true);
+          Alert.alert("Limit Reached", "You can only add up to 100 items.");
+        }
+      };
+    
+      const handleDecrement = () => {                    //1
+        if (count > 1) {
+          setCount(prevCount => prevCount - 1);
+          setMaxReached(false);
+          dispatch(updateQuantity({ productId: id, quantity: count - 1 }));
+        }
+      };
+      const handleAddToCart = () => {
+        dispatch(
+          addItemToCart({
+            _id: id,
+            quantity: count,
+            price: product.price,
+            name: product.name,
+            imageUrl: product.imageUrl,
+          })
+        );
+        navigation.navigate('cart-screen')
+        //Alert.alert("Success", "Item added to cart!");
+      };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -83,19 +109,19 @@ useEffect(() => {
               <AntDesign
                 name="arrowleft"
                 size={30}
-                color="#fff"
+                color="black"
                 style={styles.icon}
               />
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <FontAwesome
                 name="shopping-cart"
                 size={30}
                 color="#fff"
                 style={styles.icon}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
 
@@ -131,16 +157,16 @@ useEffect(() => {
       {/* Footer with Quantity and Add to Cart Button */}
       <View style={styles.footer}>
         <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-          <TouchableOpacity onPress={decrementQuantity}
+          <TouchableOpacity onPress={handleDecrement}
             style={styles.quantityButton}>
             <AntDesign name="minus" color="#ACE03A" size={20} />
           </TouchableOpacity>
 
           <View style={styles.quantityDisplay}>
-            <Text style={styles.quantityText}>{quantity}</Text>
+            <Text style={styles.quantityText}>{count}</Text>
           </View>
 
-          <TouchableOpacity onPress={incrementQuantity}
+          <TouchableOpacity onPress={handleIncrement}
             style={styles.quantityButton}>
             <AntDesign name="plus" color="#ACE03A" size={20} />
           </TouchableOpacity>
@@ -151,7 +177,7 @@ useEffect(() => {
             bgColor={textcolor.color3}
             text="Add to cart"
             width={width * 0.38}
-            onPress={() => navigation.navigate('cart-screen')}
+            onPress={handleAddToCart}
             paddingVertical={10}
             textColor={textcolor.color4}
             fontFamily={InterFont.SemiBoldFont}
@@ -176,9 +202,9 @@ const styles = StyleSheet.create({
   },
   Image: {
     width: '100%',
-    height: height * 0.35,
+    height: height * 0.30,
     resizeMode:'contain',
-    marginTop:5
+    marginTop:height*0.05
   },
   iconContainer: {
     position: 'absolute',

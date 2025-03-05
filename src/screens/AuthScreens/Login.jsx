@@ -44,9 +44,9 @@ const Login = () => {
   });
 const handleLoginSubmit = async (values, { setSubmitting }) => {
   try {
-    console.log('submit valueeee',values)
+   // console.log('submit valueeee',values)
     const response = await API.post(ENDPOINTS.LOGIN, values);
-     console.log("full responsive",response);
+   //  console.log("full responsive",response);
 
     if (response.token) {
       const userRole = response.role;
@@ -66,7 +66,7 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
         })
       );
 
-      alert('login Successful!'); 
+     // alert('login Successful!'); 
 
       setTimeout(() => {
         if (userRole === "admin") {
@@ -137,7 +137,10 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
             {errors.password && (
               <Text style={styles.errorText}>{errors.password.message}</Text>
             )}
-
+             <Text>dvsdvgvgv</Text>
+             <Text>sdcsddsdgvgvv
+              dshsdvcsdfv
+             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('forgot-password')}>
               <Text style={styles.forgotText}>
                 Forget Password
@@ -162,7 +165,7 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
 
             <View style={styles.footer}>
               <Text style={styles.footerText}>Don't have an account?</Text>
-              <TouchableOpacity onPress={() => navigation.navigate("login")}>
+              <TouchableOpacity onPress={() => navigation.navigate("register")}>
                 <Text style={styles.loginText}>Register</Text>
               </TouchableOpacity>
             </View>
@@ -171,6 +174,7 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+              console.log("🚀 ~ Login ~ Text:", Text)
 };
 
 const styles = StyleSheet.create({

@@ -28,7 +28,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="profile"
+        initialRouteName="login"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="splashScreen" component={SplashScreen} />
         <Stack.Screen name="authScreen" component={AuthScreen} />

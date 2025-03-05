@@ -27,7 +27,8 @@ const HomeScreen = () => {
           <View style={styles.CategoriesContent}>
             <Categories />
           </View>
-
+                
+                
           <View >
               
                

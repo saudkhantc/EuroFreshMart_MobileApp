@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Image,
@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { fetchCategories, setSelectedCategory } from "../../redux/categorySlice";       // 2
+import { fetchCategories, setSelectedCategory } from "../../redux/categorySlice";
 import CustomSearchInput from '../../components/Custom_SearchInput';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
 import CustomCartIcon from './CustomCartIcon';
@@ -25,10 +25,32 @@ const CategoryScreen = () => {
   const { items: categories, loading, error } = useSelector(
     (state) => state.categories
   );
-  
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCategories, setFilteredCategories] = useState(categories);
+  const [selectedCategory, setSelectedCategoryState] = useState(null);
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
+
+  useEffect(() => {
+    // Filter categories based on the search query or if a category is selected
+    if (searchQuery) {
+      setFilteredCategories(
+        categories.filter((category) =>
+          category.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    } else {
+      // Show all categories when the search query is empty, or show only the selected category
+      if (selectedCategory) {
+        setFilteredCategories([selectedCategory]);
+      } else {
+        setFilteredCategories(categories);
+      }
+    }
+  }, [searchQuery, categories, selectedCategory]);
 
   if (loading) {
     return <ActivityIndicator size="large" color="#ACE03A" />;
@@ -37,10 +59,23 @@ const CategoryScreen = () => {
   if (error) {
     return <Text style={{ color: "red", textAlign: "center" }}>Error: {error}</Text>;
   }
-  const handleCategoryClick = (category) => {                      // show category in category sec 2
-    dispatch(setSelectedCategory(category)); // Update Redux state
-    navigation.navigate("homepage"); // Navigate back to Home
-  }
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategoryState(category);
+    dispatch(setSelectedCategory(category));
+    navigation.navigate("homepage");
+  };
+
+  const handleCategorySelectFromSearch = (category) => {
+    setSelectedCategoryState(category);
+  };
+
+  // Function to reset search and show all categories
+  const handleShowAllCategories = () => {
+    setSearchQuery(""); // Clear the search query
+    setSelectedCategoryState(null); // Deselect the selected category
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollview}>
@@ -53,21 +88,49 @@ const CategoryScreen = () => {
               <CustomCartIcon />
             </View>
             <View style={styles.searchInputContainer}>
-              <CustomSearchInput placeholder={"Search for Fruit, Groce ..."} />
+              <CustomSearchInput 
+                placeholder={"Search for Fruit, Groce ..."} 
+                selectedCategory={selectedCategory}
+                onCategorySelect={handleCategorySelectFromSearch}
+                onSearchQueryChange={setSearchQuery} // Pass the setter for search query
+              />
             </View>
           </ImageBackground>
         </View>
 
         <View style={styles.body}>
-          <Text style={styles.categorytitle}>Category</Text>
+        <View style={{flexDirection:'row',justifyContent:"space-between"}}> 
+           <Text style={styles.categorytitle}>Category</Text>
+           <TouchableOpacity style={styles.showAllButton} onPress={handleShowAllCategories}>
+             <Text style={styles.showAllText}>Show All</Text>
+                  </TouchableOpacity>
+           </View>
 
           <View style={styles.categoriesContainer}>
-            {categories.map((item) => (
-              <TouchableOpacity key={item._id} style={styles.categoryCard} onPress={()=>handleCategoryClick(item)}>
-                <Image source={{ uri: item.image }} style={styles.categoryImage} />
-                <Text style={styles.categoryName}>{item.name}</Text>
-              </TouchableOpacity>
-            ))}
+            {filteredCategories.length > 0 ? (
+              filteredCategories.map((item) => (
+                <TouchableOpacity
+                  key={item._id}
+                  style={[
+                    styles.categoryCard,
+                    item._id === selectedCategory?._id && styles.selectedCategory,
+                  ]}
+                  onPress={() => handleCategoryClick(item)}
+                >
+                  <Image source={{ uri: item.image }} style={styles.categoryImage} />
+                  <Text
+                    style={[
+                      styles.categoryName,
+                      item._id === selectedCategory?._id && styles.selectedCategoryText,
+                    ]}
+                  >
+                    {item.name}
+                  </Text>
+                </TouchableOpacity>
+              ))
+            ) : (
+              <Text style={{ textAlign: "center", marginTop: 20 }}>No categories found</Text>
+            )}
           </View>
         </View>
       </ScrollView>
@@ -87,7 +150,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     height: height * 0.23,
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
   headerImage: {
     width: '100%',
@@ -101,7 +164,7 @@ const styles = StyleSheet.create({
   searchInputContainer: {
     alignSelf: 'center',
     width: width * 0.8, 
-    marginTop: 10
+    marginTop: 10,
   },
   body: {
     marginHorizontal: 18,
@@ -110,6 +173,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: textcolor.color1,
     fontFamily: InterFont.BoldFont,
+  },
+ 
+  showAllText: {
+    color: '#ACE03A',
+    fontSize: 16,
+    fontFamily: InterFont.MediumFont,
+    alignSelf:'center',
+    marginTop:10
   },
   categoriesContainer: {
     flexDirection: 'row',
@@ -141,101 +212,7 @@ const styles = StyleSheet.create({
     color: textcolor.color1,
     fontFamily: InterFont.SemiBoldFont,
   },
+  selectedCategoryText: {
+    color: '#ACE03A', // Highlight selected category
+  },
 });
-
-
-
-// import React, { useEffect } from "react";
-// import {
-//   View,
-//   FlatList,
-//   Image,
-//   Text,
-//   StyleSheet,
-//   ActivityIndicator,
-//   TouchableOpacity,
-// } from "react-native";
-// import { useDispatch, useSelector } from "react-redux";
-
-// import { useNavigation } from "@react-navigation/native";
-// import { fetchCategories } from "../../redux/categorySlice";
-
-// const CategoryScreen = () => {
-//   const dispatch = useDispatch();
-//   const navigation = useNavigation();
-//   const { items: categories, loading, error } = useSelector(
-//     (state) => state.categories
-//   );
-
-//   useEffect(() => {
-//     dispatch(fetchCategories());
-//   }, [dispatch]);
-
-//   const renderItem = ({ item }) => (
-//     <View style={styles.item}>
-//       <Image source={{ uri: item.image }} style={styles.image} />
-//       <Text style={styles.text}>{item.name}</Text>
-//     </View>
-//   );
-
-//   if (loading) {
-//     return <ActivityIndicator size="large" color="#ACE03A" />;
-//   }
-
-//   if (error) {
-//     return <Text style={{ color: "red", textAlign: "center" }}>Error: {error}</Text>;
-//   }
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-//         <Text style={styles.backText}>← Back</Text>
-//       </TouchableOpacity>
-//       <FlatList
-//         data={categories}
-//         renderItem={renderItem}
-//         keyExtractor={(item) => item._id}
-//         numColumns={2} // Display in grid format
-//         contentContainerStyle={{ paddingBottom: 20 }}
-//       />
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 10,
-//   },
-//   backButton: {
-//     padding: 10,
-//     backgroundColor: "#ACE03A",
-//     alignSelf: "flex-start",
-//     borderRadius: 5,
-//     marginBottom: 10,
-//   },
-//   backText: {
-//     fontSize: 16,
-//     color: "#fff",
-//   },
-//   item: {
-//     flex: 1,
-//     alignItems: "center",
-//     margin: 8,
-//     backgroundColor: "#EEF9D8",
-//     padding: 10,
-//     borderRadius: 10,
-//   },
-//   image: {
-//     width: 100,
-//     height: 100,
-//     borderRadius: 10,
-//   },
-//   text: {
-//     marginTop: 5,
-//     textAlign: "center",
-//     fontWeight: "bold",
-//   },
-// });
-
-// export default CategoryScreen;

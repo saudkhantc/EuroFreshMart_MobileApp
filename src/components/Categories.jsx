@@ -127,11 +127,13 @@ import { InterFont, textcolor } from "../styles/CustomStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories, setSelectedCategory } from "../redux/categorySlice";
 import CustomCard from "./Productlist";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
 const Categories = () => {
   const dispatch = useDispatch();
+  const navigation=useNavigation();
   const { items: categories, loading, error } = useSelector(
     (state) => state.categories
   );
@@ -189,7 +191,7 @@ const handleCategoryClick = (category) => {                       // 2
       <View style={styles.header}>
         <Text style={styles.title}>Categories</Text>
         <View style={styles.seeMoreContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.navigate('category-screen')}>
             <Text style={styles.seeMoreText}>See more</Text>
           </TouchableOpacity>
           <MaterialCommunityIcons name="greater-than" size={16} color={textcolor.color3} />

@@ -44,6 +44,7 @@ const Login = () => {
   });
 const handleLoginSubmit = async (values, { setSubmitting }) => {
   try {
+    setLoading(true);
    // console.log('submit valueeee',values)
     const response = await API.post(ENDPOINTS.LOGIN, values);
    //  console.log("full responsive",response);
@@ -74,7 +75,7 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
         } else {
           navigation.navigate("bottom-tabs"); 
         }
-      }, 1000);
+      });
     } else {
       alert(response.message || "Login failed.");
     }
@@ -82,7 +83,7 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
     console.error("Provide valid email and password. Please try again.");
       console.error(err.message);
   } finally {
-    setSubmitting(false);
+    setLoading(false);
   }
 };
 
@@ -137,10 +138,6 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
             {errors.password && (
               <Text style={styles.errorText}>{errors.password.message}</Text>
             )}
-             <Text>dvsdvgvgv</Text>
-             <Text>sdcsddsdgvgvv
-              dshsdvcsdfv
-             </Text>
             <TouchableOpacity onPress={() => navigation.navigate('forgot-password')}>
               <Text style={styles.forgotText}>
                 Forget Password
@@ -174,7 +171,6 @@ const handleLoginSubmit = async (values, { setSubmitting }) => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
-              console.log("🚀 ~ Login ~ Text:", Text)
 };
 
 const styles = StyleSheet.create({

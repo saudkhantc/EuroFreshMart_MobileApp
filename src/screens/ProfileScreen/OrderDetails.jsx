@@ -311,7 +311,7 @@ const OrderDetails = () => {
       };
 
       const file = await RNHTMLtoPDF.convert(options);
-      Alert.alert("Download Complete", `Invoice saved to ${file.filePath}`);
+    //  Alert.alert("Download Complete", `Invoice saved to ${file.filePath}`);
       console.log("Download Complete", `Invoice saved to ${file.filePath}`);
 
       // Share the generated PDF
@@ -326,8 +326,8 @@ const OrderDetails = () => {
       console.log("Shared successfully:", file.filePath);
 
     } catch (error) {
-      console.error("Error generating invoice:", error);
-      Alert.alert("Download Failed", "There was an error generating the invoice.");
+      console.log("Error generating invoice:", error);
+     // Alert.alert("Download Failed", "There was an error generating the invoice.");
     }
   };
 

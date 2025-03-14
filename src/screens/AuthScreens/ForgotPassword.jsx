@@ -126,7 +126,7 @@ const ForgotPassword = () => {
                 </Text>
               </View>
               <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Otp-screen')}>
+                <TouchableOpacity onPress={() => navigation.navigate('register')}>
                   <Text style={{ fontSize: 12, fontFamily: InterFont.SemiBoldFont }}>
                     Register
                   </Text>

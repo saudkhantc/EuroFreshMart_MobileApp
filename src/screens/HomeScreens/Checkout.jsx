@@ -92,7 +92,7 @@ const Checkout = () => {
       hasError = true;
     }
     if (!address.street.trim()) {
-      setErrors((prev) => ({ ...prev, street: "Street address is required." }));
+      setErrors((prev) => ({ ...prev, street: "Street  is required." }));
       hasError = true;
     }
     if (!address.city.trim()) {
@@ -104,7 +104,7 @@ const Checkout = () => {
       hasError = true;
     }
     if (!address.postalCode.trim() || !/^\d{5}$/.test(address.postalCode)) {
-      setErrors((prev) => ({ ...prev, postalCode: "Enter a valid 5-digit postal code." }));
+      setErrors((prev) => ({ ...prev, postalCode: "Enter a 5-digit postal code" }));
       hasError = true;
     }
     if (!dropOffInstructions) {
@@ -112,6 +112,10 @@ const Checkout = () => {
         ...prevState,
         dropOffInstructions: "Drop off instructions are required.",
       }));
+      hasError = true;
+    }
+    if (!paymentMode) {
+      setErrors((prev) => ({ ...prev, paymentMode: "Please select a payment method." }));
       hasError = true;
     }
     if (hasError) return;
@@ -148,7 +152,6 @@ const Checkout = () => {
       if (response.success) {
        // Alert.alert("Order created successfully.");
         dispatch(clearCart());
-        
         navigation.navigate("orderDone");  // Navigate to success screen
       } else {
         console.error("Order creation failed:", response);
@@ -203,7 +206,7 @@ const Checkout = () => {
     return (
       <TouchableOpacity
         style={styles.radioButtonContainer}
-        onPress={() => setPaymentMode(value)}
+        onPress={() => setPaymentMode(paymentMode === value ? null : value)}
       >
         <View
           style={[styles.radioButton, paymentMode === value && styles.radioButtonSelected]}
@@ -270,7 +273,7 @@ const Checkout = () => {
               placeholder="Phone Number"
               value={address.phoneNumber}
               onChangeText={(text) => setAddress({ ...address, phoneNumber: text })}
-              keyboardType="phone-pad"
+              keyboardType='numeric'
             />
             {errors.phoneNumber ? <Text style={styles.errorText}>{errors.phoneNumber}</Text> : null}
             
@@ -280,6 +283,7 @@ const Checkout = () => {
             <Text> {`${address.street} ${address.city} ${address.state} ${address.postalCode}`}</Text>
            </View>
            <View style={styles.inputcontainer}>
+           <View>
            <CustomInput
              label={'Street'}
               placeholder="Street Address"
@@ -288,6 +292,9 @@ const Checkout = () => {
               onChangeText={(value) => setAddress({ ...address, street: value })}
             />
             {errors.street ? <Text style={styles.errorText}>{errors.street}</Text> : null}
+           </View>
+           <View>
+           
             <CustomInput
               label={"City"}
               placeholder="City"
@@ -296,8 +303,10 @@ const Checkout = () => {
               onChangeText={(value) => setAddress({ ...address, city: value })}
             />
             {errors.city ? <Text style={styles.errorText}>{errors.city}</Text> : null}
+          </View>
            </View>
            <View style={styles.inputcontainer}>
+           <View>
             <CustomInput
                           placeholder="State"
                           value={address.state}
@@ -305,6 +314,8 @@ const Checkout = () => {
                           onChangeText={(value) => setAddress({ ...address, state: value })}
                         />
                         {errors.state ? <Text style={styles.errorText}>{errors.state}</Text> : null}
+                        </View>
+                        <View>
             <CustomInput
               placeholder="Postal Code"
               value={address.postalCode}
@@ -313,6 +324,7 @@ const Checkout = () => {
               keyboardType="numeric"
             />
             {errors.postalCode ? <Text style={styles.errorText}>{errors.postalCode}</Text> : null}
+            </View>
             </View>
             <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.editButton}>
               <Text style={styles.editText}>Edit Address</Text>
@@ -361,21 +373,7 @@ const Checkout = () => {
           <View style={styles.line2} />
           <Text style={styles.totalText}>Payment Mode</Text>
           <View style={styles.summaryContainer}>
-            <View style={styles.summaryRow}>
-              <View style={{ flexDirection: 'row' }}>
-                <MaterialCommunityIcons name="bank-outline" size={20}  />
-                <Text style={styles.summaryText}>Bank Transfer</Text>
-              </View>
-              <RadioButton value="bankTransfer" />
-            </View>
-
-            <View style={styles.summaryRow}>
-              <View style={{ flexDirection: 'row' }}>
-                <MaterialCommunityIcons name="credit-card" size={20} />
-                <Text style={styles.summaryText}>Credit Card</Text>
-              </View>
-              <RadioButton value="creditCard" />
-            </View>
+            
 
             <View style={styles.summaryRow}>
               <View style={{ flexDirection: 'row' }}>
@@ -383,7 +381,11 @@ const Checkout = () => {
                 <Text style={styles.summaryText}>Cash on Delivery</Text>
               </View>
               <RadioButton value="cashOnDelivery" />
+              
             </View>
+            {errors.paymentMode && (
+            <Text style={styles.errorText}>{errors.paymentMode}</Text>
+                  )}
           </View>
         </View>
       </ScrollView>

@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import React from 'react';
-
 import Img from '../../assets/images/XChuman.png';
 import success from '../../assets/images/Success.png';
 import { InterFont, textcolor } from '../../styles/CustomStyles';
@@ -21,9 +20,10 @@ const OrderDone = ({ navigation }) => {
                 </View>
                 <View>
                     <Image source={success} style={styles.img2} />
-                    <Text style={styles.ordertext}>
+                    {/* Optionally, you can display order ID here */}
+                    {/* <Text style={styles.ordertext}>
                         Order id - <Text>231323</Text>
-                    </Text>
+                    </Text> */}
                 </View>
             </ScrollView>
 

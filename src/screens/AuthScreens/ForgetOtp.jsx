@@ -84,9 +84,9 @@ const OtpScreen = () => {
         alert("Failed to resend OTP.");
       }
     } catch (error) {
-      console.error("Error resending OTP:", error);
+      console.log("Error resending OTP:", error);
       if (error.response) {
-        console.error("Error Response:", error.response);
+        console.log("Error Response:", error.response);
         alert(error.response.message || "An error occurred while resending OTP.");
       } else {
         alert("An error occurred while resending OTP.");

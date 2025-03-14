@@ -56,11 +56,6 @@ const CustomHome_Header = () => {
                 <Text style={{ color: '#fff', fontSize: 12 }}>
                   {wishlistCount}
                 </Text>
-
-                <TEXS></TEXS>
-                <Text></Text>
-                <Text></Text>
-                <Text></Text>
               </View>
             )}
           </TouchableOpacity>

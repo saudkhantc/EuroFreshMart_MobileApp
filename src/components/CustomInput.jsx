@@ -91,7 +91,8 @@ const CustomInput = ({
   value,
   onChangeText,
   secureTextEntry = false,
-  customWidth // Change prop name to customWidth
+  customWidth ,
+  keyboardType
 }) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
@@ -110,6 +111,7 @@ const CustomInput = ({
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={isSecure}
+          keyboardType={keyboardType}
         />
         {secureTextEntry && (
           <TouchableOpacity onPress={toggleSecureText} style={styles.eyeIcon}>
